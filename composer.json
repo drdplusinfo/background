@@ -10,7 +10,7 @@
   },
   "require": {
     "php": ">=5.5.0",
-    "doctrine/orm": "~2.0",
+    "doctrine/annotations": "~1.2",
     "doctrineum/integer": "dev-master",
     "drd-plus/tables": "dev-master",
     "drd-plus/exceptionalities": "dev-master",
