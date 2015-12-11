@@ -19,12 +19,12 @@ class AbstractTestOfHeritageDependent extends AbstractTestOfBackgroundAdvantage
     /**
      * @test
      * @dataProvider provideBackgroundPointsAndHeritage
-     * @param int $backgroundPointsValue
+     * @param int $pointsValue
      * @param int $heritageValue
      */
-    public function I_can_create_it($backgroundPointsValue, $heritageValue)
+    public function I_can_create_it($pointsValue, $heritageValue)
     {
-        $backgroundPoints = $this->createBackgroundPoints($backgroundPointsValue);
+        $backgroundPoints = $this->createBackgroundPoints($pointsValue);
         $heritage = $this->createHeritage($heritageValue);
 
         /** @var AbstractHeritageDependent $sutClass */
