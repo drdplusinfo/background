@@ -3,10 +3,10 @@ namespace DrdPlus\Tests\Person\Background;
 
 use DrdPlus\Codes\ProfessionCodes;
 use DrdPlus\Codes\SkillCodes;
-use DrdPlus\Person\Background\BackgroundSkills;
+use DrdPlus\Person\Background\BackgroundSkillPoints;
 use DrdPlus\Tables\Tables;
 
-class BackgroundSkillsTest extends AbstractTestOfHeritageDependent
+class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
 {
     /**
      * @test
@@ -16,7 +16,7 @@ class BackgroundSkillsTest extends AbstractTestOfHeritageDependent
         $backgroundPoints = $this->createBackgroundPoints($pointsValue = 7);
         $heritage = $this->createHeritage($heritageValue = 456);
 
-        $backgroundSkills = BackgroundSkills::getIt($backgroundPoints, $heritage);
+        $backgroundSkills = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
         $tables = $this->mockery(Tables::class)
             ->shouldReceive('getBackgroundSkillsTable')
             ->once()

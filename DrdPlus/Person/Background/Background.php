@@ -23,7 +23,7 @@ class Background extends StrictObject
     private $heritage;
 
     /**
-     * @var BackgroundSkills
+     * @var BackgroundSkillPoints
      * @ORM\Column(type="background_skills")
      */
     private $backgroundSkills;
@@ -41,7 +41,7 @@ class Background extends StrictObject
     public static function getIt(BackgroundPoints $backgroundPoints)
     {
         $heritage = Heritage::getIt($backgroundPoints);
-        $backgroundSkills = BackgroundSkills::getIt($backgroundPoints, $heritage);
+        $backgroundSkills = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
         $belongingsValue = BelongingsValue::getIt($backgroundPoints, $heritage);
 
         return new static($backgroundPoints, $heritage, $backgroundSkills, $belongingsValue);
@@ -50,7 +50,7 @@ class Background extends StrictObject
     protected function __construct(
         BackgroundPoints $backgroundPoints,
         Heritage $heritage,
-        BackgroundSkills $backgroundSkills,
+        BackgroundSkillPoints $backgroundSkills,
         BelongingsValue $belongingsValue
     )
     {
@@ -77,7 +77,7 @@ class Background extends StrictObject
     }
 
     /**
-     * @return BackgroundSkills
+     * @return BackgroundSkillPoints
      */
     public function getBackgroundSkills()
     {

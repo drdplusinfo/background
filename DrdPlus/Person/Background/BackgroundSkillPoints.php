@@ -4,11 +4,11 @@ use DrdPlus\Person\Background\Parts\AbstractHeritageDependent;
 use DrdPlus\Tables\Tables;
 
 /**
- * @method static BackgroundSkills getIt(BackgroundPoints $backgroundPoints, Heritage $heritage)
+ * @method static BackgroundSkillPoints getIt(BackgroundPoints $backgroundPoints, Heritage $heritage)
  */
-class BackgroundSkills extends AbstractHeritageDependent
+class BackgroundSkillPoints extends AbstractHeritageDependent
 {
-    const BACKGROUND_SKILLS = 'background_skills';
+    const BACKGROUND_SKILL_POINTS = 'background_skill_POINTS';
 
     /**
      * @param string $professionName
