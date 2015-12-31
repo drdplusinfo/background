@@ -1,5 +1,6 @@
 <?php
 namespace DrdPlus\Person\Background;
+
 use DrdPlus\Codes\SkillCodes;
 use DrdPlus\Person\Background\Parts\AbstractHeritageDependent;
 use DrdPlus\Tables\Tables;
@@ -9,7 +10,7 @@ use DrdPlus\Tables\Tables;
  */
 class BackgroundSkillPoints extends AbstractHeritageDependent
 {
-    const BACKGROUND_SKILL_POINTS = 'background_skill_POINTS';
+    const BACKGROUND_SKILL_POINTS = 'background_skill_points';
 
     /**
      * @param string $professionName
