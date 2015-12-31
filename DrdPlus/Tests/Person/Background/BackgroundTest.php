@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Person\Background;
 
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\BackgroundPoints;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tools\TestWithMockery;
 
 class BackgroundTest extends TestWithMockery
 {
@@ -18,7 +18,7 @@ class BackgroundTest extends TestWithMockery
         $background = Background::getIt($backgroundPoints);
 
         $this->assertSame($backgroundPoints, $background->getBackgroundPoints());
-        $backgroundSkills = $background->getBackgroundSkills();
+        $backgroundSkills = $background->getBackgroundSkillPoints();
         $this->assertSame($pointsValue, $backgroundSkills->getBackgroundPointsValue());
         $belongingsValue = $background->getBelongingsValue();
         $this->assertSame($pointsValue, $belongingsValue->getBackgroundPointsValue());

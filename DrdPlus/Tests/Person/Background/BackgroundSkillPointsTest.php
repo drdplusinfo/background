@@ -11,6 +11,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
     /**
      * @test
      * @dataProvider provideSkillType
+     * @param string $skillType
      */
     public function I_can_get_skill_points($skillType)
     {

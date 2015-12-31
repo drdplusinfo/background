@@ -24,9 +24,9 @@ class Background extends StrictObject
 
     /**
      * @var BackgroundSkillPoints
-     * @ORM\Column(type="background_skills")
+     * @ORM\Column(type="background_skill_points")
      */
-    private $backgroundSkills;
+    private $backgroundSkillPoints;
 
     /**
      * @var BelongingsValue
@@ -56,7 +56,7 @@ class Background extends StrictObject
     {
         $this->backgroundPoints = $backgroundPoints;
         $this->heritage = $heritage;
-        $this->backgroundSkills = $backgroundSkills;
+        $this->backgroundSkillPoints = $backgroundSkills;
         $this->belongingsValue = $belongingsValue;
     }
 
@@ -79,9 +79,9 @@ class Background extends StrictObject
     /**
      * @return BackgroundSkillPoints
      */
-    public function getBackgroundSkills()
+    public function getBackgroundSkillPoints()
     {
-        return $this->backgroundSkills;
+        return $this->backgroundSkillPoints;
     }
 
     /**
