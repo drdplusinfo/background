@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Person\Background;
 use DrdPlus\Codes\ProfessionCodes;
 use DrdPlus\Codes\SkillCodes;
 use DrdPlus\Person\Background\BackgroundSkillPoints;
+use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
 
 class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
@@ -32,28 +33,52 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
         /** @var Tables $tables */
         $this->assertSame(
             $result,
-            $backgroundSkills->getSkillPoints(ProfessionCodes::FIGHTER, $skillType, $tables)
+            $backgroundSkills->getSkillPoints(
+                $this->createProfession(ProfessionCodes::FIGHTER), $skillType, $tables
+            )
         );
         switch ($skillType) {
             case SkillCodes::PHYSICAL :
                 $this->assertSame(
                     $result,
-                    $backgroundSkills->getPhysicalSkillPoints(ProfessionCodes::FIGHTER, $tables)
+                    $backgroundSkills->getPhysicalSkillPoints(
+                        $this->createProfession(ProfessionCodes::FIGHTER),
+                        $tables
+                    )
                 );
                 break;
             case SkillCodes::PSYCHICAL :
                 $this->assertSame(
                     $result,
-                    $backgroundSkills->getPsychicalSkillPoints(ProfessionCodes::FIGHTER, $tables)
+                    $backgroundSkills->getPsychicalSkillPoints(
+                        $this->createProfession(ProfessionCodes::FIGHTER),
+                        $tables
+                    )
                 );
                 break;
             case SkillCodes::COMBINED :
                 $this->assertSame(
                     $result,
-                    $backgroundSkills->getCombinedSkillPoints(ProfessionCodes::FIGHTER, $tables)
+                    $backgroundSkills->getCombinedSkillPoints(
+                        $this->createProfession(ProfessionCodes::FIGHTER),
+                        $tables
+                    )
                 );
                 break;
         }
+    }
+
+    /**
+     * @param string $professionCode
+     * @return \Mockery\MockInterface|Profession
+     */
+    private function createProfession($professionCode)
+    {
+        $profession = $this->mockery(Profession::class);
+        $profession->shouldReceive('getValue')
+            ->andReturn($professionCode);
+
+        return $profession;
     }
 
     public function provideSkillType()

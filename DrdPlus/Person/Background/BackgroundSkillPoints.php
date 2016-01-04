@@ -3,6 +3,7 @@ namespace DrdPlus\Person\Background;
 
 use DrdPlus\Codes\SkillCodes;
 use DrdPlus\Person\Background\Parts\AbstractHeritageDependent;
+use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
 
 /**
@@ -13,46 +14,46 @@ class BackgroundSkillPoints extends AbstractHeritageDependent
     const BACKGROUND_SKILL_POINTS = 'background_skill_points';
 
     /**
-     * @param string $professionName
+     * @param Profession $profession
      * @param string $skillType
      * @param Tables $tables
      * @return int
      */
-    public function getSkillPoints($professionName, $skillType, Tables $tables)
+    public function getSkillPoints(Profession $profession, $skillType, Tables $tables)
     {
         return $tables->getBackgroundSkillsTable()->getSkillPoints(
             $this->getBackgroundPointsValue(),
-            $professionName,
+            $profession->getValue(),
             $skillType
         );
     }
 
     /**
-     * @param string $professionName
+     * @param Profession $profession
      * @param Tables $tables
      * @return int
      */
-    public function getPhysicalSkillPoints($professionName, Tables $tables)
+    public function getPhysicalSkillPoints(Profession $profession, Tables $tables)
     {
-        return $this->getSkillPoints($professionName, SkillCodes::PHYSICAL, $tables);
+        return $this->getSkillPoints($profession, SkillCodes::PHYSICAL, $tables);
     }
     /**
-     * @param string $professionName
+     * @param Profession $profession
      * @param Tables $tables
      * @return int
      */
-    public function getPsychicalSkillPoints($professionName, Tables $tables)
+    public function getPsychicalSkillPoints(Profession $profession, Tables $tables)
     {
-        return $this->getSkillPoints($professionName, SkillCodes::PSYCHICAL, $tables);
+        return $this->getSkillPoints($profession, SkillCodes::PSYCHICAL, $tables);
     }
 
     /**
-     * @param string $professionName
+     * @param Profession $profession
      * @param Tables $tables
      * @return int
      */
-    public function getCombinedSkillPoints($professionName, Tables $tables)
+    public function getCombinedSkillPoints(Profession $profession, Tables $tables)
     {
-        return $this->getSkillPoints($professionName, SkillCodes::COMBINED, $tables);
+        return $this->getSkillPoints($profession, SkillCodes::COMBINED, $tables);
     }
 }
