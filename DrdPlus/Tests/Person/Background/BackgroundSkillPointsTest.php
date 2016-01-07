@@ -19,7 +19,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
         $backgroundPoints = $this->createBackgroundPoints($pointsValue = 7);
         $heritage = $this->createHeritage($heritageValue = 456);
 
-        $backgroundSkills = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
+        $backgroundSkillPoints = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
         $tables = $this->mockery(Tables::class)
             ->shouldReceive('getBackgroundSkillsTable')
             ->atLeast()->once()
@@ -33,7 +33,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
         /** @var Tables $tables */
         $this->assertSame(
             $result,
-            $backgroundSkills->getSkillPoints(
+            $backgroundSkillPoints->getSkillPoints(
                 $this->createProfession(ProfessionCodes::FIGHTER), $skillType, $tables
             )
         );
@@ -41,7 +41,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
             case SkillCodes::PHYSICAL :
                 $this->assertSame(
                     $result,
-                    $backgroundSkills->getPhysicalSkillPoints(
+                    $backgroundSkillPoints->getPhysicalSkillPoints(
                         $this->createProfession(ProfessionCodes::FIGHTER),
                         $tables
                     )
@@ -50,7 +50,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
             case SkillCodes::PSYCHICAL :
                 $this->assertSame(
                     $result,
-                    $backgroundSkills->getPsychicalSkillPoints(
+                    $backgroundSkillPoints->getPsychicalSkillPoints(
                         $this->createProfession(ProfessionCodes::FIGHTER),
                         $tables
                     )
@@ -59,7 +59,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
             case SkillCodes::COMBINED :
                 $this->assertSame(
                     $result,
-                    $backgroundSkills->getCombinedSkillPoints(
+                    $backgroundSkillPoints->getCombinedSkillPoints(
                         $this->createProfession(ProfessionCodes::FIGHTER),
                         $tables
                     )
