@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Person\Background;
 
 use Doctrineum\Scalar\ScalarEnum;
 use Doctrineum\Scalar\ScalarEnumType;
-use DrdPlus\Tests\Tools\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfEnum extends TestWithMockery
 {
