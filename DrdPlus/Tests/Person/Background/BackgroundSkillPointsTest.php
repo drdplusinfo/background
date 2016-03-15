@@ -31,7 +31,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
             ->andReturn($result = 'foo')
             ->getMock();
         /** @var Tables $tables */
-        $this->assertSame(
+        self::assertSame(
             $result,
             $backgroundSkillPoints->getSkillPoints(
                 $this->createProfession(ProfessionCodes::FIGHTER), $skillType, $tables
@@ -39,7 +39,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
         );
         switch ($skillType) {
             case SkillCodes::PHYSICAL :
-                $this->assertSame(
+                self::assertSame(
                     $result,
                     $backgroundSkillPoints->getPhysicalSkillPoints(
                         $this->createProfession(ProfessionCodes::FIGHTER),
@@ -48,7 +48,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
                 );
                 break;
             case SkillCodes::PSYCHICAL :
-                $this->assertSame(
+                self::assertSame(
                     $result,
                     $backgroundSkillPoints->getPsychicalSkillPoints(
                         $this->createProfession(ProfessionCodes::FIGHTER),
@@ -57,7 +57,7 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
                 );
                 break;
             case SkillCodes::COMBINED :
-                $this->assertSame(
+                self::assertSame(
                     $result,
                     $backgroundSkillPoints->getCombinedSkillPoints(
                         $this->createProfession(ProfessionCodes::FIGHTER),

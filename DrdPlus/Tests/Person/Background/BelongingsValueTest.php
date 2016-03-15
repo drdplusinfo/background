@@ -23,9 +23,9 @@ class BelongingsValueTest extends AbstractTestOfHeritageDependent
         $belongingsValue = BelongingsValue::getIt($points, $heritage);
         $price = $belongingsValue->getBelongingsPrice();
 
-        $this->assertInstanceOf(Price::class, $price);
-        $this->assertSame((float)$expectedPrice, $price->getGoldCoins());
-        $this->assertSame((float)$expectedPrice, $price->getValue()); // the base value is in gold already
+        self::assertInstanceOf(Price::class, $price);
+        self::assertSame((float)$expectedPrice, $price->getGoldCoins());
+        self::assertSame((float)$expectedPrice, $price->getValue()); // the base value is in gold already
     }
 
     public function provideBackgroundPointsHeritageAndPrice()

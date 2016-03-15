@@ -17,8 +17,8 @@ abstract class AbstractTestOfBackgroundAdvantage extends AbstractTestOfEnum
         $points = $this->createBackgroundPoints($pointsValue);
 
         $sut = $this->createSut($points);
-        $this->assertSame($pointsValue, $sut->getValue()); // default enum value getter
-        $this->assertSame($pointsValue, $sut->getBackgroundPointsValue());
+        self::assertSame($pointsValue, $sut->getValue()); // default enum value getter
+        self::assertSame($pointsValue, $sut->getBackgroundPointsValue());
     }
 
     public function provideBackgroundPoints()

@@ -15,15 +15,15 @@ class BackgroundTest extends TestWithMockery
     public function I_can_create_background_by_points_only($pointsValue)
     {
         $backgroundPoints = $this->createBackgroundPoints($pointsValue);
-        $background = Background::getIt($backgroundPoints);
+        $background = Background::createIt($backgroundPoints);
 
-        $this->assertSame($backgroundPoints, $background->getBackgroundPoints());
+        self::assertSame($backgroundPoints, $background->getBackgroundPoints());
         $backgroundSkills = $background->getBackgroundSkillPoints();
-        $this->assertSame($pointsValue, $backgroundSkills->getBackgroundPointsValue());
+        self::assertSame($pointsValue, $backgroundSkills->getBackgroundPointsValue());
         $belongingsValue = $background->getBelongingsValue();
-        $this->assertSame($pointsValue, $belongingsValue->getBackgroundPointsValue());
+        self::assertSame($pointsValue, $belongingsValue->getBackgroundPointsValue());
         $heritage = $background->getHeritage();
-        $this->assertSame($pointsValue, $heritage->getBackgroundPointsValue());
+        self::assertSame($pointsValue, $heritage->getBackgroundPointsValue());
     }
 
     public function provideBackgroundPoints()

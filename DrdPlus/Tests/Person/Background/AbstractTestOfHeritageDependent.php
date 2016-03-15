@@ -30,8 +30,8 @@ class AbstractTestOfHeritageDependent extends AbstractTestOfBackgroundAdvantage
         /** @var AbstractHeritageDependent $sutClass */
         $sutClass = $this->getSutClass();
         $sut = $sutClass::getIt($backgroundPoints, $heritage);
-        $this->assertSame($backgroundPoints->getValue(), $sut->getValue());
-        $this->assertSame($backgroundPoints->getValue(), $sut->getBackgroundPointsValue());
+        self::assertSame($backgroundPoints->getValue(), $sut->getValue());
+        self::assertSame($backgroundPoints->getValue(), $sut->getBackgroundPointsValue());
     }
 
     public function provideBackgroundPointsAndHeritage()

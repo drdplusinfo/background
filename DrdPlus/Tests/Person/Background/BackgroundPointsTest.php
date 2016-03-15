@@ -18,7 +18,7 @@ class BackgroundPointsTest extends AbstractTestOfEnum
     public function I_can_get_background_points_by_fate($fateType, $expectedPoints)
     {
         $backgroundPoints = BackgroundPoints::getIt($this->createFate($fateType));
-        $this->assertSame($expectedPoints, $backgroundPoints->getValue());
+        self::assertSame($expectedPoints, $backgroundPoints->getValue());
     }
 
     public function provideFateTypeAndPoints()

@@ -17,9 +17,9 @@ class HeritageTest extends AbstractTestOfBackgroundAdvantage
         $points = BackgroundPoints::getEnum($pointsValue);
         /** @var BackgroundPoints $points */
         $heritage = Heritage::getIt($points);
-        $this->assertSame($pointsValue, $heritage->getValue());
-        $this->assertSame($pointsValue, $heritage->getBackgroundPointsValue());
-        $this->assertSame($expectedHeritageName, $heritage->getHeritageName());
+        self::assertSame($pointsValue, $heritage->getValue());
+        self::assertSame($pointsValue, $heritage->getBackgroundPointsValue());
+        self::assertSame($expectedHeritageName, $heritage->getHeritageName());
     }
 
     public function provideBackgroundPointsWithHeritage()

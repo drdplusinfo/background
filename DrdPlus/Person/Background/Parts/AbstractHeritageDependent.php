@@ -13,7 +13,7 @@ abstract class AbstractHeritageDependent extends AbstractBackgroundAdvantage
      * @param BackgroundPoints $backgroundPoints
      * @param Heritage $heritage
      *
-     * @return static
+     * @return AbstractHeritageDependent
      */
     public static function getIt(BackgroundPoints $backgroundPoints, Heritage $heritage)
     {
