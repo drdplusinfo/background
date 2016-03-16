@@ -44,7 +44,7 @@ abstract class AbstractTestOfEnum extends TestWithMockery
     private function getEnumClassBasename()
     {
         $enumClass = $this->getSutClass();
-        preg_match('~(?<basename>\w+$)~', $enumClass, $matches);
+        self::assertSame(1, preg_match('~(?<basename>\w+$)~', $enumClass, $matches));
 
         return $matches['basename'];
     }
@@ -58,7 +58,7 @@ abstract class AbstractTestOfEnum extends TestWithMockery
     }
 
     /**
-     * @return ScalarEnum|string
+     * @return ScalarEnum
      */
     protected function getSutClass()
     {

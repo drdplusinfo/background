@@ -7,7 +7,7 @@ use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
 
 /**
- * @method static BackgroundSkillPoints getIt(BackgroundPoints $backgroundPoints, Heritage $heritage)
+ * @method static BackgroundSkillPoints getIt(BackgroundPoints $backgroundPoints)
  */
 class BackgroundSkillPoints extends AbstractHeritageDependent
 {

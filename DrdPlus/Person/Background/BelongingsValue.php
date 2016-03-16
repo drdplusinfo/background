@@ -5,7 +5,7 @@ use DrdPlus\Person\Background\Parts\AbstractHeritageDependent;
 use DrdPlus\Tables\Measurements\Price\Price;
 
 /**
- * @method static BelongingsValue getIt(BackgroundPoints $backgroundPoints, Heritage $heritage)
+ * @method static BelongingsValue getIt(BackgroundPoints $backgroundPoints)
  */
 class BelongingsValue extends AbstractHeritageDependent
 {

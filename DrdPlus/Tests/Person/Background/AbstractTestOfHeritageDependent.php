@@ -11,25 +11,22 @@ class AbstractTestOfHeritageDependent extends AbstractTestOfBackgroundAdvantage
     {
         /** @var AbstractHeritageDependent $sutClass */
         $sutClass = $this->getSutClass();
-        $heritage = $this->createHeritage(8);
 
-        return $sutClass::getIt($backgroundPoints, $heritage);
+        return $sutClass::getIt($backgroundPoints);
     }
 
     /**
      * @test
      * @dataProvider provideBackgroundPointsAndHeritage
      * @param int $pointsValue
-     * @param int $heritageValue
      */
-    public function I_can_create_it($pointsValue, $heritageValue)
+    public function I_can_create_it($pointsValue)
     {
         $backgroundPoints = $this->createBackgroundPoints($pointsValue);
-        $heritage = $this->createHeritage($heritageValue);
 
         /** @var AbstractHeritageDependent $sutClass */
         $sutClass = $this->getSutClass();
-        $sut = $sutClass::getIt($backgroundPoints, $heritage);
+        $sut = $sutClass::getIt($backgroundPoints);
         self::assertSame($backgroundPoints->getValue(), $sut->getValue());
         self::assertSame($backgroundPoints->getValue(), $sut->getBackgroundPointsValue());
     }
@@ -85,30 +82,4 @@ class AbstractTestOfHeritageDependent extends AbstractTestOfBackgroundAdvantage
         return parent::getSutClass();
     }
 
-    /**
-     * @test
-     * @dataProvider provideProhibitedBackgroundPointsToHeritage
-     * @expectedException \LogicException
-     * @param int $backgroundPointsValue
-     * @param int $heritageValue
-     */
-    public function I_can_not_use_more_then_three_more_heritage_points($backgroundPointsValue, $heritageValue)
-    {
-        $backgroundPoints = $this->createBackgroundPoints($backgroundPointsValue);
-        $heritage = $this->createHeritage($heritageValue);
-
-        $sutClass = $this->getSutClass();
-        $sutClass::getIt($backgroundPoints, $heritage);
-    }
-
-    public function provideProhibitedBackgroundPointsToHeritage()
-    {
-        return [
-            [4, 0],
-            [5, 1],
-            [6, 2],
-            [7, 3],
-            [8, 4]
-        ];
-    }
 }
