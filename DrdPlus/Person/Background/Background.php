@@ -36,13 +36,13 @@ class Background extends StrictObject
 
     /**
      * @param BackgroundPoints $backgroundPoints
-     * @return static
+     * @return Background
      */
     public static function createIt(BackgroundPoints $backgroundPoints)
     {
         $heritage = Heritage::getIt($backgroundPoints);
-        $backgroundSkillPoints = BackgroundSkillPoints::getIt($backgroundPoints);
-        $belongingsValue = BelongingsValue::getIt($backgroundPoints);
+        $backgroundSkillPoints = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
+        $belongingsValue = BelongingsValue::getIt($backgroundPoints, $heritage);
 
         return new static($backgroundPoints, $heritage, $backgroundSkillPoints, $belongingsValue);
     }

@@ -28,7 +28,7 @@ class BackgroundPoints extends IntegerEnum
 
     private static function determinePoints(ExceptionalityFate $fate)
     {
-        switch ($fate->getCode()) {
+        switch ($fate::getCode()) {
             case FateOfExceptionalProperties::FATE_OF_EXCEPTIONAL_PROPERTIES :
                 return self::BACKGROUND_POINTS_FOR_FATE_OF_EXCEPTIONAL_PROPERTIES;
             case FateOfCombination::FATE_OF_COMBINATION :
