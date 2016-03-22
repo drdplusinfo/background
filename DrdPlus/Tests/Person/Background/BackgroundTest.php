@@ -1,7 +1,12 @@
 <?php
 namespace DrdPlus\Tests\Person\Background;
 
+use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
+use DrdPlus\Exceptionalities\Fates\FateOfGoodRear;
 use DrdPlus\Person\Background\Background;
+use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
+use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
+use DrdPlus\Person\Background\BackgroundParts\Heritage;
 use DrdPlus\Person\Background\BackgroundPoints;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -10,37 +15,53 @@ class BackgroundTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideBackgroundPoints
-     * @param int $pointsValue
+     *
+     * @param ExceptionalityFate $exceptionalityFate
+     * @param int $forHeritageSpentBackgroundPoints ,
+     * @param int $forBackgroundSkillPointsSpentBackgroundPoints ,
+     * @param int $forBelongingsSpentBackgroundPoints
      */
-    public function I_can_create_background_by_points_only($pointsValue)
+    public function I_can_create_background(
+        ExceptionalityFate $exceptionalityFate,
+        $forHeritageSpentBackgroundPoints,
+        $forBackgroundSkillPointsSpentBackgroundPoints,
+        $forBelongingsSpentBackgroundPoints
+    )
     {
-        $backgroundPoints = $this->createBackgroundPoints($pointsValue);
-        $background = Background::createIt($backgroundPoints);
+        $background = Background::createIt(
+            $exceptionalityFate,
+            $forHeritageSpentBackgroundPoints,
+            $forBackgroundSkillPointsSpentBackgroundPoints,
+            $forBelongingsSpentBackgroundPoints
+        );
 
-        self::assertSame($backgroundPoints, $background->getBackgroundPoints());
-        $backgroundSkills = $background->getBackgroundSkillPoints();
-        self::assertSame($pointsValue, $backgroundSkills->getBackgroundPointsValue());
-        $belongingsValue = $background->getBelongingsValue();
-        self::assertSame($pointsValue, $belongingsValue->getBackgroundPointsValue());
+        $backgroundPoints = $background->getBackgroundPoints();
+        self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);
+        self::assertSame(
+            BackgroundPoints::POINTS_FOR_FATE_OF_GOOD_REAR,
+            $backgroundPoints->getValue()
+        );
+
         $heritage = $background->getHeritage();
-        self::assertSame($pointsValue, $heritage->getBackgroundPointsValue());
+        self::assertInstanceOf(Heritage::class, $heritage);
+        self::assertSame($forHeritageSpentBackgroundPoints, $heritage->getSpentBackgroundPoints());
+
+        $backgroundSkillPoints = $background->getBackgroundSkillPoints();
+        self::assertInstanceOf(BackgroundSkillPoints::class, $backgroundSkillPoints);
+        self::assertSame(
+            $forBackgroundSkillPointsSpentBackgroundPoints,
+            $backgroundSkillPoints->getSpentBackgroundPoints()
+        );
+
+        $belongingsValue = $background->getBelongingsValue();
+        self::assertInstanceOf(BelongingsValue::class, $belongingsValue);
+        self::assertSame($forBelongingsSpentBackgroundPoints, $belongingsValue->getSpentBackgroundPoints());
     }
 
     public function provideBackgroundPoints()
     {
-        return [[0], [1], [2], [3], [4], [5], [6], [7], [8]];
-    }
-
-    /**
-     * @param $value
-     * @return \Mockery\MockInterface|BackgroundPoints
-     */
-    private function createBackgroundPoints($value)
-    {
-        $backgroundPoints = $this->mockery(BackgroundPoints::class);
-        $backgroundPoints->shouldReceive('getValue')
-            ->andReturn($value);
-
-        return $backgroundPoints;
+        return [
+            [FateOfGoodRear::getIt(), 1, 1, 1],
+        ];
     }
 }

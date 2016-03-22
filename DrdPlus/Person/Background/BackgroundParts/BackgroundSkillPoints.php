@@ -1,13 +1,13 @@
 <?php
-namespace DrdPlus\Person\Background;
+namespace DrdPlus\Person\Background\BackgroundParts;
 
 use DrdPlus\Codes\SkillCodes;
-use DrdPlus\Person\Background\Parts\AbstractHeritageDependent;
+use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractHeritageDependent;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
 
 /**
- * @method static BackgroundSkillPoints getIt(BackgroundPoints $backgroundPoints)
+ * @method static BackgroundSkillPoints getIt($spentBackgroundPoints, Heritage $heritage)
  */
 class BackgroundSkillPoints extends AbstractHeritageDependent
 {
@@ -22,7 +22,7 @@ class BackgroundSkillPoints extends AbstractHeritageDependent
     public function getSkillPoints(Profession $profession, $skillType, Tables $tables)
     {
         return $tables->getBackgroundSkillsTable()->getSkillPoints(
-            $this->getBackgroundPointsValue(),
+            $this->getSpentBackgroundPoints(),
             $profession->getValue(),
             $skillType
         );

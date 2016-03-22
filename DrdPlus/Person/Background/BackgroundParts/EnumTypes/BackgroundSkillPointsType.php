@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Person\Background\EnumTypes;
+namespace DrdPlus\Person\Background\BackgroundParts\EnumTypes;
 
 use Doctrineum\Integer\IntegerEnumType;
-use DrdPlus\Person\Background\BackgroundSkillPoints;
+use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 
 class BackgroundSkillPointsType extends IntegerEnumType
 {

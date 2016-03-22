@@ -1,13 +1,14 @@
 <?php
-namespace DrdPlus\Tests\Person\Background;
+namespace DrdPlus\Tests\Person\Background\BackgroundParts;
 
 use DrdPlus\Codes\ProfessionCodes;
 use DrdPlus\Codes\SkillCodes;
-use DrdPlus\Person\Background\BackgroundSkillPoints;
+use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
+use DrdPlus\Tests\Person\Background\BackgroundParts\Partials\AbstractHeritageDependentTest;
 
-class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
+class BackgroundSkillPointsTest extends AbstractHeritageDependentTest
 {
     /**
      * @test
@@ -16,17 +17,17 @@ class BackgroundSkillPointsTest extends AbstractTestOfHeritageDependent
      */
     public function I_can_get_skill_points($skillType)
     {
-        $backgroundPoints = $this->createBackgroundPoints($pointsValue = 7);
-        $heritage = $this->createHeritage($heritageValue = 456);
-
-        $backgroundSkillPoints = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
+        $backgroundSkillPoints = BackgroundSkillPoints::getIt(
+            $spentBackgroundPoints = 7,
+            $heritage = $this->createHeritage($heritageValue = 456)
+        );
         $tables = $this->mockery(Tables::class)
             ->shouldReceive('getBackgroundSkillsTable')
             ->atLeast()->once()
             ->andReturn($backgroundSkillsTable = $this->mockery(\stdClass::class))
             ->getMock();
         $backgroundSkillsTable->shouldReceive('getSkillPoints')
-            ->with($pointsValue, ProfessionCodes::FIGHTER, $skillType)
+            ->with($spentBackgroundPoints, ProfessionCodes::FIGHTER, $skillType)
             ->atLeast()->once()
             ->andReturn($result = 'foo')
             ->getMock();

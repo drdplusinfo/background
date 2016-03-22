@@ -2,6 +2,10 @@
 namespace DrdPlus\Person\Background;
 
 use Doctrine\ORM\Mapping as ORM;
+use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
+use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
+use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
+use DrdPlus\Person\Background\BackgroundParts\Heritage;
 use Granam\Strict\Object\StrictObject;
 
 /**
@@ -35,14 +39,23 @@ class Background extends StrictObject
     private $belongingsValue;
 
     /**
-     * @param BackgroundPoints $backgroundPoints
+     * @param ExceptionalityFate $exceptionalityFate,
+     * @param int $forHeritageSpentBackgroundPoints,
+     * @param int $forBackgroundSkillPointsSpentBackgroundPoints
+     * @param int $forBelongingsSpentBackgroundPoints
      * @return Background
      */
-    public static function createIt(BackgroundPoints $backgroundPoints)
+    public static function createIt(
+        ExceptionalityFate $exceptionalityFate,
+        $forHeritageSpentBackgroundPoints,
+        $forBackgroundSkillPointsSpentBackgroundPoints,
+        $forBelongingsSpentBackgroundPoints
+    )
     {
-        $heritage = Heritage::getIt($backgroundPoints);
-        $backgroundSkillPoints = BackgroundSkillPoints::getIt($backgroundPoints, $heritage);
-        $belongingsValue = BelongingsValue::getIt($backgroundPoints, $heritage);
+        $backgroundPoints = BackgroundPoints::getIt($exceptionalityFate);
+        $heritage = Heritage::getIt($forHeritageSpentBackgroundPoints);
+        $backgroundSkillPoints = BackgroundSkillPoints::getIt($forBackgroundSkillPointsSpentBackgroundPoints, $heritage);
+        $belongingsValue = BelongingsValue::getIt($forBelongingsSpentBackgroundPoints, $heritage);
 
         return new static($backgroundPoints, $heritage, $backgroundSkillPoints, $belongingsValue);
     }
@@ -54,6 +67,7 @@ class Background extends StrictObject
         BelongingsValue $belongingsValue
     )
     {
+        // TODO check sum of used background points
         $this->backgroundPoints = $backgroundPoints;
         $this->heritage = $heritage;
         $this->backgroundSkillPoints = $backgroundSkillPoints;

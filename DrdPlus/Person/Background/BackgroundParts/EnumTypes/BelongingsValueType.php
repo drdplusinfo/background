@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Person\Background\EnumTypes;
+namespace DrdPlus\Person\Background\BackgroundParts\EnumTypes;
 
 use Doctrineum\Integer\IntegerEnumType;
-use DrdPlus\Person\Background\BelongingsValue;
+use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
 
 class BelongingsValueType extends IntegerEnumType
 {

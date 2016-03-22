@@ -22,19 +22,20 @@ class BackgroundPoints extends IntegerEnum
         return static::getEnum($backgroundPoints);
     }
 
-    const BACKGROUND_POINTS_FOR_FATE_OF_EXCEPTIONAL_PROPERTIES = 5;
-    const BACKGROUND_POINTS_FOR_FATE_OF_COMBINATION = 10;
-    const BACKGROUND_POINTS_FOR_FATE_OF_GOOD_REAR = 15;
+    // PPH page 37 right column
+    const POINTS_FOR_FATE_OF_EXCEPTIONAL_PROPERTIES = 5;
+    const POINTS_FOR_FATE_OF_COMBINATION = 10;
+    const POINTS_FOR_FATE_OF_GOOD_REAR = 15;
 
     private static function determinePoints(ExceptionalityFate $fate)
     {
         switch ($fate::getCode()) {
             case FateOfExceptionalProperties::FATE_OF_EXCEPTIONAL_PROPERTIES :
-                return self::BACKGROUND_POINTS_FOR_FATE_OF_EXCEPTIONAL_PROPERTIES;
+                return self::POINTS_FOR_FATE_OF_EXCEPTIONAL_PROPERTIES;
             case FateOfCombination::FATE_OF_COMBINATION :
-                return self::BACKGROUND_POINTS_FOR_FATE_OF_COMBINATION;
+                return self::POINTS_FOR_FATE_OF_COMBINATION;
             case FateOfGoodRear::FATE_OF_GOOD_REAR :
-                return self::BACKGROUND_POINTS_FOR_FATE_OF_GOOD_REAR;
+                return self::POINTS_FOR_FATE_OF_GOOD_REAR;
             default :
                 throw new Exceptions\UnknownFate("Unknown fate {$fate}");
         }

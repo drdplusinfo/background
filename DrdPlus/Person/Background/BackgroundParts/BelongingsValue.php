@@ -1,11 +1,11 @@
 <?php
-namespace DrdPlus\Person\Background;
+namespace DrdPlus\Person\Background\BackgroundParts;
 
-use DrdPlus\Person\Background\Parts\AbstractHeritageDependent;
+use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractHeritageDependent;
 use DrdPlus\Tables\Measurements\Price\Price;
 
 /**
- * @method static BelongingsValue getIt(BackgroundPoints $backgroundPoints)
+ * @method static BelongingsValue getIt($spentBackgroundPoints, Heritage $heritage)
  */
 class BelongingsValue extends AbstractHeritageDependent
 {

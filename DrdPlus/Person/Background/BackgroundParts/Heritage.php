@@ -1,30 +1,22 @@
 <?php
-namespace DrdPlus\Person\Background;
+namespace DrdPlus\Person\Background\BackgroundParts;
 
-use DrdPlus\Person\Background\Parts\AbstractBackgroundAdvantage;
+use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractBackgroundAdvantage;
 
 class Heritage extends AbstractBackgroundAdvantage
 {
     const HERITAGE = 'heritage';
 
     /**
-     * @param BackgroundPoints $backgroundPoints
+     * @param int $spentBackgroundPoints
      *
      * @return Heritage
      */
-    public static function getIt(BackgroundPoints $backgroundPoints)
+    public static function getIt($spentBackgroundPoints)
     {
-        static::checkBackgroundPointsLimits($backgroundPoints);
+        static::checkBackgroundPointsLimits($spentBackgroundPoints);
 
-        return self::getEnum($backgroundPoints->getValue());
-    }
-
-    /**
-     * @return int
-     */
-    public function getBackgroundPointsValue()
-    {
-        return $this->getValue();
+        return self::getEnum($spentBackgroundPoints);
     }
 
     const FOUNDLING = 'foundling';
@@ -42,7 +34,7 @@ class Heritage extends AbstractBackgroundAdvantage
      */
     public function getHeritageName()
     {
-        switch ($this->getBackgroundPointsValue()) {
+        switch ($this->getSpentBackgroundPoints()) {
             case 0 :
                 return self::FOUNDLING;
             case 1 :
@@ -63,7 +55,7 @@ class Heritage extends AbstractBackgroundAdvantage
                 return self::NOBLE_FROM_POWERFUL_FAMILY;
             default :
                 throw new Exceptions\UnexpectedBackgroundPoints(
-                    "Unexpected background points for heritage: {$this->getBackgroundPointsValue()}"
+                    "Unexpected background points for heritage: {$this->getSpentBackgroundPoints()}"
                 );
         }
     }

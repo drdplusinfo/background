@@ -14,10 +14,17 @@ abstract class AbstractTestOfEnum extends TestWithMockery
     public function I_can_use_it_as_an_enum()
     {
         $sutClass = $this->getSutClass();
-        self::assertTrue(is_a($sutClass, ScalarEnum::class, true));
+        self::assertTrue(class_exists($sutClass), "Class $sutClass not found");
+        self::assertTrue(
+            is_a($sutClass, ScalarEnum::class, true),
+            "Class $sutClass should be child of " . ScalarEnum::class
+        );
 
         $typeClass = $this->getEnumTypeClass();
-        self::assertTrue(class_exists($typeClass));
+        self::assertTrue(
+            class_exists($typeClass),
+            "Expected enum type class $typeClass not found"
+        );
         self::assertTrue(is_a($typeClass, ScalarEnumType::class, true));
         $typeClass::registerSelf();
 
