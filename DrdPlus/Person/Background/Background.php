@@ -81,14 +81,23 @@ class Background extends StrictObject
         BelongingsValue $belongingsValue
     )
     {
-        $sumOfSpentBackgroundPoints = $heritage->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
-            + $belongingsValue->getSpentBackgroundPoints();
+        $sumOfSpentBackgroundPoints = $this->sumSpentPoints($heritage, $backgroundSkillPoints, $belongingsValue);
         if ($sumOfSpentBackgroundPoints > $backgroundPoints->getValue()) {
             throw new Exceptions\SpentTooMuchBackgroundPoints(
                 "Available background points are {$backgroundPoints->getValue()},"
                 . " sum of spent background points is {$sumOfSpentBackgroundPoints}"
             );
         }
+    }
+
+    private function sumSpentPoints(
+        Heritage $heritage,
+        BackgroundSkillPoints $backgroundSkillPoints,
+        BelongingsValue $belongingsValue
+    )
+    {
+        return $heritage->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
+        + $belongingsValue->getSpentBackgroundPoints();
     }
 
     /**
@@ -121,6 +130,16 @@ class Background extends StrictObject
     public function getBelongingsValue()
     {
         return $this->belongingsValue;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRemainingBackgroundPoints()
+    {
+        return $this->getBackgroundPoints()->getValue() - $this->sumSpentPoints(
+            $this->getHeritage(), $this->getBackgroundSkillPoints(), $this->getBelongingsValue()
+        );
     }
 
 }
