@@ -73,4 +73,54 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
         return $points;
     }
 
+    /**
+     * @test
+     * @dataProvider provideTooMuchBackgroundPointsToHeritage
+     * @expectedException \DrdPlus\Person\Background\BackgroundParts\Partials\Exceptions\TooMuchSpentBackgroundPoints
+     *
+     * @param int $spentBackgroundPoints
+     * @param int $heritageBackgroundPoints
+     */
+    public function I_can_not_spent_more_than_three_more($spentBackgroundPoints, $heritageBackgroundPoints)
+    {
+        /** @var AbstractHeritageDependent $sutClass */
+        $sutClass = $this->getSutClass();
+        self::assertGreaterThan($heritageBackgroundPoints + 3, $spentBackgroundPoints);
+        self::assertLessThanOrEqual(8, $spentBackgroundPoints);
+        $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($heritageBackgroundPoints));
+    }
+
+    public function provideTooMuchBackgroundPointsToHeritage()
+    {
+        return [
+            [4, 0],
+            [5, 0],
+            [6, 0],
+            [7, 0],
+            [8, 4],
+            [7, 3],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Person\Background\BackgroundParts\Exceptions\UnexpectedBackgroundPoints
+     */
+    public function I_can_not_spent_negative_points()
+    {
+        /** @var AbstractHeritageDependent $sutClass */
+        $sutClass = $this->getSutClass();
+        $sutClass::getIt(-1, $this->createHeritage(0));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Person\Background\BackgroundParts\Exceptions\UnexpectedBackgroundPoints
+     */
+    public function I_can_not_spent_more_than_eight_points()
+    {
+        /** @var AbstractHeritageDependent $sutClass */
+        $sutClass = $this->getSutClass();
+        $sutClass::getIt(9, $this->createHeritage(8));
+    }
 }

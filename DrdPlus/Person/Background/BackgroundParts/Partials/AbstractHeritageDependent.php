@@ -1,7 +1,6 @@
 <?php
 namespace DrdPlus\Person\Background\BackgroundParts\Partials;
 
-use DrdPlus\Person\Background\BackgroundParts\Exceptions\UnexpectedBackgroundPoints;
 use DrdPlus\Person\Background\BackgroundParts\Heritage;
 use Granam\Integer\Tools\ToInteger;
 
@@ -29,8 +28,8 @@ abstract class AbstractHeritageDependent extends AbstractBackgroundAdvantage
     )
     {
         if ($spentBackgroundPoints > ($heritage->getSpentBackgroundPoints() + self::MAX_POINTS_OVER_HERITAGE)) {
-            throw new UnexpectedBackgroundPoints(
-                static::class . ' can not get more points then'
+            throw new Exceptions\TooMuchSpentBackgroundPoints(
+                static::class . ' can not get more points than'
                 . ' heritage background points + max used background points over those of heritage '
                 . '(' . $heritage->getSpentBackgroundPoints() . ' + ' . self::MAX_POINTS_OVER_HERITAGE . ')'
                 . ' = ' . ($heritage->getSpentBackgroundPoints() + self::MAX_POINTS_OVER_HERITAGE)
