@@ -39,8 +39,8 @@ class Background extends StrictObject
     private $belongingsValue;
 
     /**
-     * @param ExceptionalityFate $exceptionalityFate,
-     * @param int $forHeritageSpentBackgroundPoints,
+     * @param ExceptionalityFate $exceptionalityFate ,
+     * @param int $forHeritageSpentBackgroundPoints ,
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
      * @param int $forBelongingsSpentBackgroundPoints
      * @return Background
@@ -67,11 +67,28 @@ class Background extends StrictObject
         BelongingsValue $belongingsValue
     )
     {
-        // TODO check sum of used background points
+        $this->checkSumOfSpentBackgroundPoints($backgroundPoints, $heritage, $backgroundSkillPoints, $belongingsValue);
         $this->backgroundPoints = $backgroundPoints;
         $this->heritage = $heritage;
         $this->backgroundSkillPoints = $backgroundSkillPoints;
         $this->belongingsValue = $belongingsValue;
+    }
+
+    private function checkSumOfSpentBackgroundPoints(
+        BackgroundPoints $backgroundPoints,
+        Heritage $heritage,
+        BackgroundSkillPoints $backgroundSkillPoints,
+        BelongingsValue $belongingsValue
+    )
+    {
+        $sumOfSpentBackgroundPoints = $heritage->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
+            + $belongingsValue->getSpentBackgroundPoints();
+        if ($sumOfSpentBackgroundPoints > $backgroundPoints->getValue()) {
+            throw new Exceptions\SpentTooMuchBackgroundPoints(
+                "Available background points are {$backgroundPoints->getValue()},"
+                . " sum of spent background points is {$sumOfSpentBackgroundPoints}"
+            );
+        }
     }
 
     /**

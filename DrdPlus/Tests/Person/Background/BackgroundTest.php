@@ -64,4 +64,30 @@ class BackgroundTest extends TestWithMockery
             [FateOfGoodRear::getIt(), 1, 1, 1],
         ];
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Person\Background\Exceptions\SpentTooMuchBackgroundPoints
+     */
+    public function I_can_not_spent_more_than_available_points_in_total()
+    {
+        $fate = FateOfGoodRear::getIt();
+        $backgroundPoints = BackgroundPoints::getIt($fate);
+        $pointsForHeritage = 6;
+        $pointsForBackgroundSkillPoints = 5;
+        $pointsForBelongings = 6;
+        self::assertGreaterThan(
+            $backgroundPoints->getValue(),
+            $pointsForHeritage
+            + $pointsForBackgroundSkillPoints
+            + $pointsForBelongings
+        );
+
+        Background::createIt(
+            FateOfGoodRear::getIt(),
+            $pointsForHeritage,
+            $pointsForBackgroundSkillPoints,
+            $pointsForBelongings
+        );
+    }
 }
