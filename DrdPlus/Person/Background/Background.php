@@ -60,7 +60,7 @@ class Background extends StrictObject
         return new static($backgroundPoints, $heritage, $backgroundSkillPoints, $belongingsValue);
     }
 
-    protected function __construct(
+    private function __construct(
         BackgroundPoints $backgroundPoints,
         Heritage $heritage,
         BackgroundSkillPoints $backgroundSkillPoints,
