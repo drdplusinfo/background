@@ -14,7 +14,7 @@ class Heritage extends AbstractBackgroundAdvantage
      */
     public static function getIt($spentBackgroundPoints)
     {
-        static::checkBackgroundPointsLimits($spentBackgroundPoints);
+        static::checkSpentBackgroundPointsLimits($spentBackgroundPoints);
 
         return self::getEnum($spentBackgroundPoints);
     }

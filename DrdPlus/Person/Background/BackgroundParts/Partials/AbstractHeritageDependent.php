@@ -17,7 +17,7 @@ abstract class AbstractHeritageDependent extends AbstractBackgroundAdvantage
     public static function getIt($spentBackgroundPoints, Heritage $heritage)
     {
         $spentBackgroundPoints = ToInteger::toInteger($spentBackgroundPoints);
-        self::checkBackgroundPointsLimits($spentBackgroundPoints);
+        self::checkSpentBackgroundPointsLimits($spentBackgroundPoints);
         self::checkBackgroundPointsAgainstHeritage($spentBackgroundPoints, $heritage);
 
         return self::getEnum($spentBackgroundPoints);
