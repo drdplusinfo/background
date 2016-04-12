@@ -2,6 +2,7 @@
 namespace DrdPlus\Person\Background;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrineum\Entity\Entity;
 use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
@@ -9,11 +10,17 @@ use DrdPlus\Person\Background\BackgroundParts\Heritage;
 use Granam\Strict\Object\StrictObject;
 
 /**
- * @ORM\Table()
  * @ORM\Entity()
  */
-class Background extends StrictObject
+class Background extends StrictObject implements Entity
 {
+    /**
+     * @var int
+     * @ORM\Id()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue()
+     */
+    private $id;
     /**
      * @var BackgroundPoints
      * @ORM\Column(type="background_points")
@@ -98,6 +105,14 @@ class Background extends StrictObject
     {
         return $heritage->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
         + $belongingsValue->getSpentBackgroundPoints();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

@@ -35,6 +35,8 @@ class BackgroundTest extends TestWithMockery
             $forBelongingsSpentBackgroundPoints
         );
 
+        self::assertNull($background->getId());
+
         $backgroundPoints = $background->getBackgroundPoints();
         self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);
         self::assertSame(
