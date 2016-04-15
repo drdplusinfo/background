@@ -5,13 +5,13 @@ use Doctrineum\Tests\Entity\AbstractDoctrineEntitiesTest;
 use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
 use DrdPlus\Exceptionalities\Fates\FateOfCombination;
 use DrdPlus\Person\Background\Background;
-use DrdPlus\Person\Background\EnumTypes\PersonBackgroundEnumsRegistrar;
+use DrdPlus\Person\Background\EnumTypes\PersonBackgroundEnumRegistrar;
 
 class DoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
 {
     protected function setUp()
     {
-        PersonBackgroundEnumsRegistrar::registerAll();
+        PersonBackgroundEnumRegistrar::registerAll();
         parent::setUp();
     }
 

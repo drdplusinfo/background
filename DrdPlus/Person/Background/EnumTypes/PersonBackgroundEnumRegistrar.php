@@ -5,7 +5,7 @@ use DrdPlus\Person\Background\BackgroundParts\EnumTypes\BackgroundSkillPointsTyp
 use DrdPlus\Person\Background\BackgroundParts\EnumTypes\BelongingsValueType;
 use DrdPlus\Person\Background\BackgroundParts\EnumTypes\HeritageType;
 
-class PersonBackgroundEnumsRegistrar
+class PersonBackgroundEnumRegistrar
 {
     public static function registerAll()
     {
