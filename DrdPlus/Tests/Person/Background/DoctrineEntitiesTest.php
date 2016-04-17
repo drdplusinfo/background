@@ -34,13 +34,18 @@ class DoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
     protected function createEntitiesToPersist()
     {
         return [
-            Background::createIt(
-                ExceptionalityFate::getItByCode(FateOfCombination::getCode()),
-                3,
-                3,
-                4
-            )
+            self::createBackgroundEntity()
         ];
+    }
+
+    public static function createBackgroundEntity()
+    {
+        return Background::createIt(
+            ExceptionalityFate::getItByCode(FateOfCombination::getCode()),
+            3,
+            3,
+            4
+        );
     }
 
 }
