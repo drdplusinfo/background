@@ -9,8 +9,6 @@ use DrdPlus\Tables\Measurements\Price\Price;
  */
 class BelongingsValue extends AbstractHeritageDependent
 {
-    const BELONGINGS_VALUE = 'belongings_value';
-
     /**
      * @var Price
      */

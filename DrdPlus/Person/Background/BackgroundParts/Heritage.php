@@ -5,8 +5,6 @@ use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractBackgroundAdvanta
 
 class Heritage extends AbstractBackgroundAdvantage
 {
-    const HERITAGE = 'heritage';
-
     /**
      * @param int $spentBackgroundPoints
      *

@@ -9,8 +9,6 @@ use DrdPlus\Exceptionalities\Fates\FateOfGoodRear;
 
 class BackgroundPoints extends IntegerEnum
 {
-    const BACKGROUND_POINTS = 'background_points';
-
     /**
      * @param ExceptionalityFate $fate
      * @return BackgroundPoints

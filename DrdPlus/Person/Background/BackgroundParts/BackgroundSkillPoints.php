@@ -11,8 +11,6 @@ use DrdPlus\Tables\Tables;
  */
 class BackgroundSkillPoints extends AbstractHeritageDependent
 {
-    const BACKGROUND_SKILL_POINTS = 'background_skill_points';
-
     /**
      * @param Profession $profession
      * @param string $skillType
