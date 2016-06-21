@@ -19,14 +19,13 @@ class BelongingsValue extends AbstractHeritageDependent
      */
     public function getBelongingsPrice()
     {
-        if (!isset($this->belongingsPrice)) {
+        if ($this->belongingsPrice === null) {
             $belongingsPrice = $this->calculatePrice($this->getValue());
             $this->belongingsPrice = new Price($belongingsPrice, Price::GOLD_COIN);
         }
 
         return $this->belongingsPrice;
     }
-
 
     private function calculatePrice($backgroundPoints)
     {

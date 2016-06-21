@@ -11,8 +11,8 @@ abstract class AbstractHeritageDependent extends AbstractBackgroundAdvantage
     /**
      * @param int $spentBackgroundPoints
      * @param Heritage $heritage
-     *
      * @return AbstractHeritageDependent
+     * @throws \Granam\Integer\Tools\Exceptions\Runtime
      */
     public static function getIt($spentBackgroundPoints, Heritage $heritage)
     {

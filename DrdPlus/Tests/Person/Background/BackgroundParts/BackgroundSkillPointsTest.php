@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Person\Background\BackgroundParts;
 
-use DrdPlus\Codes\ProfessionCodes;
-use DrdPlus\Codes\SkillCodes;
+use DrdPlus\Codes\ProfessionCode;
+use DrdPlus\Codes\SkillTypeCode;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
@@ -27,7 +27,7 @@ class BackgroundSkillPointsTest extends AbstractHeritageDependentTest
             ->andReturn($backgroundSkillsTable = $this->mockery(\stdClass::class))
             ->getMock();
         $backgroundSkillsTable->shouldReceive('getSkillPoints')
-            ->with($spentBackgroundPoints, ProfessionCodes::FIGHTER, $skillType)
+            ->with($spentBackgroundPoints, ProfessionCode::FIGHTER, $skillType)
             ->atLeast()->once()
             ->andReturn($result = 'foo')
             ->getMock();
@@ -35,33 +35,33 @@ class BackgroundSkillPointsTest extends AbstractHeritageDependentTest
         self::assertSame(
             $result,
             $backgroundSkillPoints->getSkillPoints(
-                $this->createProfession(ProfessionCodes::FIGHTER), $skillType, $tables
+                $this->createProfession(ProfessionCode::FIGHTER), $skillType, $tables
             )
         );
         switch ($skillType) {
-            case SkillCodes::PHYSICAL :
+            case SkillTypeCode::PHYSICAL :
                 self::assertSame(
                     $result,
                     $backgroundSkillPoints->getPhysicalSkillPoints(
-                        $this->createProfession(ProfessionCodes::FIGHTER),
+                        $this->createProfession(ProfessionCode::FIGHTER),
                         $tables
                     )
                 );
                 break;
-            case SkillCodes::PSYCHICAL :
+            case SkillTypeCode::PSYCHICAL :
                 self::assertSame(
                     $result,
                     $backgroundSkillPoints->getPsychicalSkillPoints(
-                        $this->createProfession(ProfessionCodes::FIGHTER),
+                        $this->createProfession(ProfessionCode::FIGHTER),
                         $tables
                     )
                 );
                 break;
-            case SkillCodes::COMBINED :
+            case SkillTypeCode::COMBINED :
                 self::assertSame(
                     $result,
                     $backgroundSkillPoints->getCombinedSkillPoints(
-                        $this->createProfession(ProfessionCodes::FIGHTER),
+                        $this->createProfession(ProfessionCode::FIGHTER),
                         $tables
                     )
                 );
@@ -85,9 +85,9 @@ class BackgroundSkillPointsTest extends AbstractHeritageDependentTest
     public function provideSkillType()
     {
         return [
-            [SkillCodes::PHYSICAL],
-            [SkillCodes::PSYCHICAL],
-            [SkillCodes::COMBINED],
+            [SkillTypeCode::PHYSICAL],
+            [SkillTypeCode::PSYCHICAL],
+            [SkillTypeCode::COMBINED],
         ];
     }
 }

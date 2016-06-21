@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Person\Background\BackgroundParts;
 
-use DrdPlus\Codes\SkillCodes;
+use DrdPlus\Codes\SkillTypeCode;
 use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractHeritageDependent;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
@@ -33,7 +33,7 @@ class BackgroundSkillPoints extends AbstractHeritageDependent
      */
     public function getPhysicalSkillPoints(Profession $profession, Tables $tables)
     {
-        return $this->getSkillPoints($profession, SkillCodes::PHYSICAL, $tables);
+        return $this->getSkillPoints($profession, SkillTypeCode::PHYSICAL, $tables);
     }
     /**
      * @param Profession $profession
@@ -42,7 +42,7 @@ class BackgroundSkillPoints extends AbstractHeritageDependent
      */
     public function getPsychicalSkillPoints(Profession $profession, Tables $tables)
     {
-        return $this->getSkillPoints($profession, SkillCodes::PSYCHICAL, $tables);
+        return $this->getSkillPoints($profession, SkillTypeCode::PSYCHICAL, $tables);
     }
 
     /**
@@ -52,6 +52,6 @@ class BackgroundSkillPoints extends AbstractHeritageDependent
      */
     public function getCombinedSkillPoints(Profession $profession, Tables $tables)
     {
-        return $this->getSkillPoints($profession, SkillCodes::COMBINED, $tables);
+        return $this->getSkillPoints($profession, SkillTypeCode::COMBINED, $tables);
     }
 }

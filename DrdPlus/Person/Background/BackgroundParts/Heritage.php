@@ -29,6 +29,7 @@ class Heritage extends AbstractBackgroundAdvantage
 
     /**
      * @return string
+     * @throws \DrdPlus\Person\Background\BackgroundParts\Exceptions\UnexpectedBackgroundPoints
      */
     public function getHeritageName()
     {
