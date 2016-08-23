@@ -7,7 +7,7 @@ use DrdPlus\Exceptionalities\Fates\FateOfCombination;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\EnumTypes\PersonBackgroundEnumRegistrar;
 
-class DoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
+class PersonBackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
 {
     protected function setUp()
     {
