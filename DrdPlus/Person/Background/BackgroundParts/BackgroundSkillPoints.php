@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Person\Background\BackgroundParts;
 
-use DrdPlus\Codes\SkillTypeCode;
+use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractHeritageDependent;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;

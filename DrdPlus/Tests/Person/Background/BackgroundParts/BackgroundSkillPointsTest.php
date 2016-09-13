@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Person\Background\BackgroundParts;
 
 use DrdPlus\Codes\ProfessionCode;
-use DrdPlus\Codes\SkillTypeCode;
+use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
