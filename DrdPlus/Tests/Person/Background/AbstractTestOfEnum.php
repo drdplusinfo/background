@@ -13,7 +13,7 @@ abstract class AbstractTestOfEnum extends TestWithMockery
      */
     public function I_can_use_it_as_an_enum()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         self::assertTrue(class_exists($sutClass), "Class $sutClass not found");
         self::assertTrue(
             is_a($sutClass, ScalarEnum::class, true),
@@ -32,14 +32,14 @@ abstract class AbstractTestOfEnum extends TestWithMockery
     }
 
     /**
-     * @return ScalarEnumType
+     * @return ScalarEnumType|string
      */
     private function getEnumTypeClass()
     {
         $enumClassBaseName = $this->getEnumClassBasename();
         $enumTypeClassBasename = $enumClassBaseName . 'Type';
 
-        $enumClass = $this->getSutClass();
+        $enumClass = self::getSutClass();
         $reflection = new \ReflectionClass($enumClass);
         $enumNamespace = $reflection->getNamespaceName();
 
@@ -50,7 +50,7 @@ abstract class AbstractTestOfEnum extends TestWithMockery
 
     private function getEnumClassBasename()
     {
-        $enumClass = $this->getSutClass();
+        $enumClass = self::getSutClass();
         self::assertSame(1, preg_match('~(?<basename>\w+$)~', $enumClass, $matches));
 
         return $matches['basename'];
@@ -62,13 +62,5 @@ abstract class AbstractTestOfEnum extends TestWithMockery
         $underscored = preg_replace('~([a-z])([A-Z])~', '$1_$2', $enumClassBaseName);
 
         return strtolower($underscored);
-    }
-
-    /**
-     * @return ScalarEnum
-     */
-    protected function getSutClass()
-    {
-        return preg_replace('~[\\\]Tests([\\\].+)Test$~', '$1', static::class);
     }
 }

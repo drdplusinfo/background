@@ -10,7 +10,7 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
     protected function createSut($spentBackgroundPoints)
     {
         /** @var AbstractHeritageDependent $sutClass */
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
 
         return $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($spentBackgroundPoints));
     }
@@ -39,7 +39,7 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
     public function I_can_create_it($spentBackgroundPoints, $heritageBackgroundPoints)
     {
         /** @var AbstractHeritageDependent $sutClass */
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         $sut = $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($heritageBackgroundPoints));
         self::assertSame($spentBackgroundPoints, $sut->getValue());
         self::assertSame($spentBackgroundPoints, $sut->getSpentBackgroundPoints());
@@ -84,7 +84,7 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
     public function I_can_not_spent_more_than_three_more($spentBackgroundPoints, $heritageBackgroundPoints)
     {
         /** @var AbstractHeritageDependent $sutClass */
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         self::assertGreaterThan($heritageBackgroundPoints + 3, $spentBackgroundPoints);
         self::assertLessThanOrEqual(8, $spentBackgroundPoints);
         $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($heritageBackgroundPoints));
@@ -109,7 +109,7 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
     public function I_can_not_spent_negative_points()
     {
         /** @var AbstractHeritageDependent $sutClass */
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         $sutClass::getIt(-1, $this->createHeritage(0));
     }
 
@@ -120,7 +120,7 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
     public function I_can_not_spent_more_than_eight_points()
     {
         /** @var AbstractHeritageDependent $sutClass */
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         $sutClass::getIt(9, $this->createHeritage(8));
     }
 }
