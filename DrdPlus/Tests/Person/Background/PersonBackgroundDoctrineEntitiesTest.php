@@ -2,10 +2,10 @@
 namespace DrdPlus\Tests\Person\Background;
 
 use Doctrineum\Tests\Entity\AbstractDoctrineEntitiesTest;
-use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
-use DrdPlus\Exceptionalities\Fates\FateOfCombination;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\EnumTypes\PersonBackgroundEnumRegistrar;
+use DrdPlus\Tables\History\BackgroundPointsTable;
 
 class PersonBackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
 {
@@ -20,7 +20,7 @@ class PersonBackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
         $backgroundReflection = new \ReflectionClass(Background::class);
 
         return [
-            dirname($backgroundReflection->getFileName())
+            dirname($backgroundReflection->getFileName()),
         ];
     }
 
@@ -34,18 +34,13 @@ class PersonBackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
     protected function createEntitiesToPersist()
     {
         return [
-            self::createBackgroundEntity()
+            self::createBackgroundEntity(),
         ];
     }
 
     public static function createBackgroundEntity()
     {
-        return Background::createIt(
-            ExceptionalityFate::getItByCode(FateOfCombination::getCode()),
-            3,
-            3,
-            4
-        );
+        return Background::createIt(FateCode::getIt(FateCode::FATE_OF_COMBINATION), new BackgroundPointsTable(), 3, 3, 4);
     }
 
 }

@@ -3,10 +3,11 @@ namespace DrdPlus\Person\Background;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrineum\Entity\Entity;
-use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
 use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Tables\History\BackgroundPointsTable;
 use Granam\Strict\Object\StrictObject;
 
 /**
@@ -46,20 +47,22 @@ class Background extends StrictObject implements Entity
     private $belongingsValue;
 
     /**
-     * @param ExceptionalityFate $exceptionalityFate ,
-     * @param int $forHeritageSpentBackgroundPoints ,
+     * @param FateCode $fateCode
+     * @param BackgroundPointsTable $backgroundPointsTable
+     * @param int $forHeritageSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
      * @param int $forBelongingsSpentBackgroundPoints
      * @return Background
      */
     public static function createIt(
-        ExceptionalityFate $exceptionalityFate,
+        FateCode $fateCode,
+        BackgroundPointsTable $backgroundPointsTable,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
     )
     {
-        $backgroundPoints = BackgroundPoints::getIt($exceptionalityFate);
+        $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
         $heritage = Heritage::getIt($forHeritageSpentBackgroundPoints);
         $backgroundSkillPoints = BackgroundSkillPoints::getIt($forBackgroundSkillPointsSpentBackgroundPoints, $heritage);
         $belongingsValue = BelongingsValue::getIt($forBelongingsSpentBackgroundPoints, $heritage);
@@ -104,7 +107,7 @@ class Background extends StrictObject implements Entity
     )
     {
         return $heritage->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
-        + $belongingsValue->getSpentBackgroundPoints();
+            + $belongingsValue->getSpentBackgroundPoints();
     }
 
     /**
@@ -153,8 +156,8 @@ class Background extends StrictObject implements Entity
     public function getRemainingBackgroundPoints()
     {
         return $this->getBackgroundPoints()->getValue() - $this->sumSpentPoints(
-            $this->getHeritage(), $this->getBackgroundSkillPoints(), $this->getBelongingsValue()
-        );
+                $this->getHeritage(), $this->getBackgroundSkillPoints(), $this->getBelongingsValue()
+            );
     }
 
 }

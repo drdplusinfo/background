@@ -1,46 +1,43 @@
 <?php
 namespace DrdPlus\Tests\Person\Background;
 
-use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
-use DrdPlus\Exceptionalities\Fates\FateOfCombination;
-use DrdPlus\Exceptionalities\Fates\FateOfExceptionalProperties;
-use DrdPlus\Exceptionalities\Fates\FateOfGoodRear;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Person\Background\BackgroundPoints;
+use DrdPlus\Tables\History\BackgroundPointsTable;
 
 class BackgroundPointsTest extends AbstractTestOfEnum
 {
     /**
      * @test
-     * @dataProvider provideFateTypeAndBackgroundPoints
-     * @param ExceptionalityFate $exceptionalityFate
-     * @param int $expectedPoints
      */
-    public function I_can_get_background_points_by_fate(ExceptionalityFate $exceptionalityFate, $expectedPoints)
+    public function I_can_get_background_points_by_fate()
     {
-        $backgroundPoints = BackgroundPoints::getIt($exceptionalityFate);
-        self::assertSame($expectedPoints, $backgroundPoints->getValue());
-    }
-
-    public function provideFateTypeAndBackgroundPoints()
-    {
-        return [
-            [FateOfExceptionalProperties::getIt(), 5],
-            [FateOfCombination::getIt(), 10],
-            [FateOfGoodRear::getIt(), 15],
-        ];
+        $fateCode = $this->createFateCode();
+        $backgroundPointsTable = $this->createBackgroundPointsTable($fateCode, 123);
+        $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
+        self::assertSame(123, $backgroundPoints->getValue());
     }
 
     /**
-     * @test
-     * @expectedException \DrdPlus\Person\Background\Exceptions\UnknownFate
+     * @return \Mockery\MockInterface|FateCode
      */
-    public function I_can_not_use_unknown_fate()
+    private function createFateCode()
     {
-        BackgroundPoints::getIt(UnknownFate::getIt());
+        return $this->mockery(FateCode::class);
     }
-}
 
-/** inner */
-class UnknownFate extends FateOfGoodRear
-{
+    /**
+     * @param FateCode $fateCode
+     * @param int $backgroundPoints
+     * @return \Mockery\MockInterface|BackgroundPointsTable
+     */
+    private function createBackgroundPointsTable(FateCode $fateCode, $backgroundPoints)
+    {
+        $backgroundPointsTable = $this->mockery(BackgroundPointsTable::class);
+        $backgroundPointsTable->shouldReceive('getBackgroundPointsByFate')
+            ->with($fateCode)
+            ->andReturn($backgroundPoints);
+
+        return $backgroundPointsTable;
+    }
 }

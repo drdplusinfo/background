@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tests\Person\Background;
 
-use DrdPlus\Exceptionalities\Fates\ExceptionalityFate;
-use DrdPlus\Exceptionalities\Fates\FateOfGoodRear;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
 use DrdPlus\Person\Background\BackgroundParts\Heritage;
 use DrdPlus\Person\Background\BackgroundPoints;
+use DrdPlus\Tables\History\BackgroundPointsTable;
 use Granam\Tests\Tools\TestWithMockery;
 
 class BackgroundTest extends TestWithMockery
@@ -15,21 +15,21 @@ class BackgroundTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideBackgroundPoints
-     *
-     * @param ExceptionalityFate $exceptionalityFate
-     * @param int $forHeritageSpentBackgroundPoints ,
-     * @param int $forBackgroundSkillPointsSpentBackgroundPoints ,
+     * @param FateCode $fateCode
+     * @param int $forHeritageSpentBackgroundPoints
+     * @param int $forBackgroundSkillPointsSpentBackgroundPoints
      * @param int $forBelongingsSpentBackgroundPoints
      */
     public function I_can_create_background(
-        ExceptionalityFate $exceptionalityFate,
+        FateCode $fateCode,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
     )
     {
         $background = Background::createIt(
-            $exceptionalityFate,
+            $fateCode,
+            $backgroundPointsTable = new BackgroundPointsTable(),
             $forHeritageSpentBackgroundPoints,
             $forBackgroundSkillPointsSpentBackgroundPoints,
             $forBelongingsSpentBackgroundPoints
@@ -39,10 +39,7 @@ class BackgroundTest extends TestWithMockery
 
         $backgroundPoints = $background->getBackgroundPoints();
         self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);
-        self::assertSame(
-            BackgroundPoints::POINTS_FOR_FATE_OF_GOOD_REAR,
-            $backgroundPoints->getValue()
-        );
+        self::assertSame($backgroundPointsTable->getBackgroundPointsByFate($fateCode), $backgroundPoints->getValue());
 
         $heritage = $background->getHeritage();
         self::assertInstanceOf(Heritage::class, $heritage);
@@ -71,7 +68,7 @@ class BackgroundTest extends TestWithMockery
     public function provideBackgroundPoints()
     {
         return [
-            [FateOfGoodRear::getIt(), 1, 1, 1],
+            [FateCode::getIt(FateCode::FATE_OF_GOOD_REAR), 1, 1, 1],
         ];
     }
 
@@ -81,8 +78,7 @@ class BackgroundTest extends TestWithMockery
      */
     public function I_can_not_spent_more_than_available_points_in_total()
     {
-        $fate = FateOfGoodRear::getIt();
-        $backgroundPoints = BackgroundPoints::getIt($fate);
+        $backgroundPoints = BackgroundPoints::getIt(FateCode::getIt(FateCode::FATE_OF_GOOD_REAR), new BackgroundPointsTable());
         $pointsForHeritage = 6;
         $pointsForBackgroundSkillPoints = 5;
         $pointsForBelongings = 6;
@@ -94,7 +90,8 @@ class BackgroundTest extends TestWithMockery
         );
 
         Background::createIt(
-            FateOfGoodRear::getIt(),
+            FateCode::getIt(FateCode::FATE_OF_GOOD_REAR),
+            new BackgroundPointsTable(),
             $pointsForHeritage,
             $pointsForBackgroundSkillPoints,
             $pointsForBelongings
