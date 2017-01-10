@@ -2,19 +2,19 @@
 namespace DrdPlus\Person\Background;
 
 use Doctrineum\Integer\IntegerEnum;
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\PlayerDecisionCode;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 
 class BackgroundPoints extends IntegerEnum
 {
     /**
-     * @param FateCode $fateCode
+     * @param PlayerDecisionCode $playerDecisionCode
      * @param BackgroundPointsTable $backgroundPointsTable
      * @return BackgroundPoints|IntegerEnum
      */
-    public static function getIt(FateCode $fateCode, BackgroundPointsTable $backgroundPointsTable)
+    public static function getIt(PlayerDecisionCode $playerDecisionCode, BackgroundPointsTable $backgroundPointsTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return static::getEnum($backgroundPointsTable->getBackgroundPointsByFate($fateCode));
+        return static::getEnum($backgroundPointsTable->getBackgroundPointsByPlayerDecision($playerDecisionCode));
     }
 }

@@ -3,7 +3,7 @@ namespace DrdPlus\Person\Background;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrineum\Entity\Entity;
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\PlayerDecisionCode;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
 use DrdPlus\Person\Background\BackgroundParts\Heritage;
@@ -47,7 +47,7 @@ class Background extends StrictObject implements Entity
     private $belongingsValue;
 
     /**
-     * @param FateCode $fateCode
+     * @param PlayerDecisionCode $playerDecisionCode
      * @param BackgroundPointsTable $backgroundPointsTable
      * @param int $forHeritageSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
@@ -55,14 +55,14 @@ class Background extends StrictObject implements Entity
      * @return Background
      */
     public static function createIt(
-        FateCode $fateCode,
+        PlayerDecisionCode $playerDecisionCode,
         BackgroundPointsTable $backgroundPointsTable,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
     )
     {
-        $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
+        $backgroundPoints = BackgroundPoints::getIt($playerDecisionCode, $backgroundPointsTable);
         $heritage = Heritage::getIt($forHeritageSpentBackgroundPoints);
         $backgroundSkillPoints = BackgroundSkillPoints::getIt($forBackgroundSkillPointsSpentBackgroundPoints, $heritage);
         $belongingsValue = BelongingsValue::getIt($forBelongingsSpentBackgroundPoints, $heritage);

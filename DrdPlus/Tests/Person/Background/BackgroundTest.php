@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Person\Background;
 
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\PlayerDecisionCode;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
@@ -15,20 +15,20 @@ class BackgroundTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideBackgroundPoints
-     * @param FateCode $fateCode
+     * @param PlayerDecisionCode $playerDecisionCode
      * @param int $forHeritageSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
      * @param int $forBelongingsSpentBackgroundPoints
      */
     public function I_can_create_background(
-        FateCode $fateCode,
+        PlayerDecisionCode $playerDecisionCode,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
     )
     {
         $background = Background::createIt(
-            $fateCode,
+            $playerDecisionCode,
             $backgroundPointsTable = new BackgroundPointsTable(),
             $forHeritageSpentBackgroundPoints,
             $forBackgroundSkillPointsSpentBackgroundPoints,
@@ -39,7 +39,7 @@ class BackgroundTest extends TestWithMockery
 
         $backgroundPoints = $background->getBackgroundPoints();
         self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);
-        self::assertSame($backgroundPointsTable->getBackgroundPointsByFate($fateCode), $backgroundPoints->getValue());
+        self::assertSame($backgroundPointsTable->getBackgroundPointsByPlayerDecision($playerDecisionCode), $backgroundPoints->getValue());
 
         $heritage = $background->getHeritage();
         self::assertInstanceOf(Heritage::class, $heritage);
@@ -68,7 +68,7 @@ class BackgroundTest extends TestWithMockery
     public function provideBackgroundPoints()
     {
         return [
-            [FateCode::getIt(FateCode::FATE_OF_GOOD_REAR), 1, 1, 1],
+            [PlayerDecisionCode::getIt(PlayerDecisionCode::GOOD_BACKGROUND), 1, 1, 1],
         ];
     }
 
@@ -78,7 +78,9 @@ class BackgroundTest extends TestWithMockery
      */
     public function I_can_not_spent_more_than_available_points_in_total()
     {
-        $backgroundPoints = BackgroundPoints::getIt(FateCode::getIt(FateCode::FATE_OF_GOOD_REAR), new BackgroundPointsTable());
+        $backgroundPoints = BackgroundPoints::getIt(
+            PlayerDecisionCode::getIt(PlayerDecisionCode::GOOD_BACKGROUND), new BackgroundPointsTable()
+        );
         $pointsForHeritage = 6;
         $pointsForBackgroundSkillPoints = 5;
         $pointsForBelongings = 6;
@@ -90,7 +92,7 @@ class BackgroundTest extends TestWithMockery
         );
 
         Background::createIt(
-            FateCode::getIt(FateCode::FATE_OF_GOOD_REAR),
+            PlayerDecisionCode::getIt(PlayerDecisionCode::GOOD_BACKGROUND),
             new BackgroundPointsTable(),
             $pointsForHeritage,
             $pointsForBackgroundSkillPoints,
