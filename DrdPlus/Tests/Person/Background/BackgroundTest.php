@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Person\Background;
 
-use DrdPlus\Codes\PlayerDecisionCode;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
 use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
@@ -15,13 +15,13 @@ class BackgroundTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideBackgroundPoints
-     * @param PlayerDecisionCode $playerDecisionCode
+     * @param FateCode $playerDecisionCode
      * @param int $forHeritageSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
      * @param int $forBelongingsSpentBackgroundPoints
      */
     public function I_can_create_background(
-        PlayerDecisionCode $playerDecisionCode,
+        FateCode $playerDecisionCode,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
@@ -68,7 +68,7 @@ class BackgroundTest extends TestWithMockery
     public function provideBackgroundPoints()
     {
         return [
-            [PlayerDecisionCode::getIt(PlayerDecisionCode::GOOD_BACKGROUND), 1, 1, 1],
+            [FateCode::getIt(FateCode::GOOD_BACKGROUND), 1, 1, 1],
         ];
     }
 
@@ -79,7 +79,7 @@ class BackgroundTest extends TestWithMockery
     public function I_can_not_spent_more_than_available_points_in_total()
     {
         $backgroundPoints = BackgroundPoints::getIt(
-            PlayerDecisionCode::getIt(PlayerDecisionCode::GOOD_BACKGROUND), new BackgroundPointsTable()
+            FateCode::getIt(FateCode::GOOD_BACKGROUND), new BackgroundPointsTable()
         );
         $pointsForHeritage = 6;
         $pointsForBackgroundSkillPoints = 5;
@@ -92,7 +92,7 @@ class BackgroundTest extends TestWithMockery
         );
 
         Background::createIt(
-            PlayerDecisionCode::getIt(PlayerDecisionCode::GOOD_BACKGROUND),
+            FateCode::getIt(FateCode::GOOD_BACKGROUND),
             new BackgroundPointsTable(),
             $pointsForHeritage,
             $pointsForBackgroundSkillPoints,

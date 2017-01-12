@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Person\Background;
 
 use Doctrineum\Tests\Entity\AbstractDoctrineEntitiesTest;
-use DrdPlus\Codes\PlayerDecisionCode;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\EnumTypes\PersonBackgroundEnumRegistrar;
 use DrdPlus\Tables\History\BackgroundPointsTable;
@@ -41,7 +41,7 @@ class PersonBackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
     public static function createBackgroundEntity()
     {
         return Background::createIt(
-            PlayerDecisionCode::getIt(PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND),
+            FateCode::getIt(FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND),
             new BackgroundPointsTable(),
             3,
             3,
