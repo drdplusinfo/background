@@ -15,20 +15,20 @@ class BackgroundTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideBackgroundPoints
-     * @param FateCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @param int $forHeritageSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
      * @param int $forBelongingsSpentBackgroundPoints
      */
     public function I_can_create_background(
-        FateCode $playerDecisionCode,
+        FateCode $fateCode,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
     )
     {
         $background = Background::createIt(
-            $playerDecisionCode,
+            $fateCode,
             $backgroundPointsTable = new BackgroundPointsTable(),
             $forHeritageSpentBackgroundPoints,
             $forBackgroundSkillPointsSpentBackgroundPoints,
@@ -39,7 +39,7 @@ class BackgroundTest extends TestWithMockery
 
         $backgroundPoints = $background->getBackgroundPoints();
         self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);
-        self::assertSame($backgroundPointsTable->getBackgroundPointsByPlayerDecision($playerDecisionCode), $backgroundPoints->getValue());
+        self::assertSame($backgroundPointsTable->getBackgroundPointsByPlayerDecision($fateCode), $backgroundPoints->getValue());
 
         $heritage = $background->getHeritage();
         self::assertInstanceOf(Heritage::class, $heritage);

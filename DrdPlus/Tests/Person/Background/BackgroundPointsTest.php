@@ -12,9 +12,9 @@ class BackgroundPointsTest extends AbstractTestOfEnum
      */
     public function I_can_get_background_points_by_fate()
     {
-        $playerDecisionCode = $this->createFateCode();
-        $backgroundPointsTable = $this->createBackgroundPointsTable($playerDecisionCode, 123);
-        $backgroundPoints = BackgroundPoints::getIt($playerDecisionCode, $backgroundPointsTable);
+        $fateCode = $this->createFateCode();
+        $backgroundPointsTable = $this->createBackgroundPointsTable($fateCode, 123);
+        $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
         self::assertSame(123, $backgroundPoints->getValue());
     }
 
@@ -27,15 +27,15 @@ class BackgroundPointsTest extends AbstractTestOfEnum
     }
 
     /**
-     * @param FateCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @param int $backgroundPoints
      * @return \Mockery\MockInterface|BackgroundPointsTable
      */
-    private function createBackgroundPointsTable(FateCode $playerDecisionCode, $backgroundPoints)
+    private function createBackgroundPointsTable(FateCode $fateCode, $backgroundPoints)
     {
         $backgroundPointsTable = $this->mockery(BackgroundPointsTable::class);
         $backgroundPointsTable->shouldReceive('getBackgroundPointsByPlayerDecision')
-            ->with($playerDecisionCode)
+            ->with($fateCode)
             ->andReturn($backgroundPoints);
 
         return $backgroundPointsTable;

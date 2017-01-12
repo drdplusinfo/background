@@ -8,13 +8,13 @@ use DrdPlus\Tables\History\BackgroundPointsTable;
 class BackgroundPoints extends IntegerEnum
 {
     /**
-     * @param FateCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @param BackgroundPointsTable $backgroundPointsTable
      * @return BackgroundPoints|IntegerEnum
      */
-    public static function getIt(FateCode $playerDecisionCode, BackgroundPointsTable $backgroundPointsTable)
+    public static function getIt(FateCode $fateCode, BackgroundPointsTable $backgroundPointsTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return static::getEnum($backgroundPointsTable->getBackgroundPointsByPlayerDecision($playerDecisionCode));
+        return static::getEnum($backgroundPointsTable->getBackgroundPointsByPlayerDecision($fateCode));
     }
 }

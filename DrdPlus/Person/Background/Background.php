@@ -47,7 +47,7 @@ class Background extends StrictObject implements Entity
     private $belongingsValue;
 
     /**
-     * @param FateCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @param BackgroundPointsTable $backgroundPointsTable
      * @param int $forHeritageSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
@@ -55,14 +55,14 @@ class Background extends StrictObject implements Entity
      * @return Background
      */
     public static function createIt(
-        FateCode $playerDecisionCode,
+        FateCode $fateCode,
         BackgroundPointsTable $backgroundPointsTable,
         $forHeritageSpentBackgroundPoints,
         $forBackgroundSkillPointsSpentBackgroundPoints,
         $forBelongingsSpentBackgroundPoints
     )
     {
-        $backgroundPoints = BackgroundPoints::getIt($playerDecisionCode, $backgroundPointsTable);
+        $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
         $heritage = Heritage::getIt($forHeritageSpentBackgroundPoints);
         $backgroundSkillPoints = BackgroundSkillPoints::getIt($forBackgroundSkillPointsSpentBackgroundPoints, $heritage);
         $belongingsValue = BelongingsValue::getIt($forBelongingsSpentBackgroundPoints, $heritage);
