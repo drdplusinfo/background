@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Person\Background\BackgroundParts;
 
+use Doctrineum\Integer\IntegerEnum;
 use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractBackgroundAdvantage;
 
 class Ancestry extends AbstractBackgroundAdvantage
@@ -8,7 +9,7 @@ class Ancestry extends AbstractBackgroundAdvantage
     /**
      * @param int $spentBackgroundPoints
 
-     * @return Ancestry
+     * @return Ancestry|IntegerEnum
      */
     public static function getIt($spentBackgroundPoints)
     {
