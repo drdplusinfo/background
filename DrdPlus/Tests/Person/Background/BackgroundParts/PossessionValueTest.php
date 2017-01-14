@@ -1,27 +1,27 @@
 <?php
 namespace DrdPlus\Tests\Person\Background\BackgroundParts;
 
-use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
-use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Person\Background\BackgroundParts\PossessionValue;
+use DrdPlus\Person\Background\BackgroundParts\Ancestry;
 use DrdPlus\Tables\Measurements\Price\Price;
 use DrdPlus\Tests\Person\Background\BackgroundParts\Partials\AbstractHeritageDependentTest;
 
-class BelongingsValueTest extends AbstractHeritageDependentTest
+class PossessionValueTest extends AbstractHeritageDependentTest
 {
     /**
      * @test
      * @dataProvider provideBackgroundPointsHeritageAndPrice
      * @param int $spentBackgroundPoints
-     * @param int $heritageValue
+     * @param int $ancestryValue
      * @param int $expectedPrice
      */
-    public function I_can_get_belongings_price($spentBackgroundPoints, $heritageValue, $expectedPrice)
+    public function I_can_get_belongings_price($spentBackgroundPoints, $ancestryValue, $expectedPrice)
     {
-        $belongingsValue = BelongingsValue::getIt(
+        $possessionValue = PossessionValue::getIt(
             $spentBackgroundPoints,
-            $heritage = $this->createHeritage($heritageValue)
+            $ancestry = $this->createHeritage($ancestryValue)
         );
-        $price = $belongingsValue->getBelongingsPrice();
+        $price = $possessionValue->getBelongingsPrice();
 
         self::assertInstanceOf(Price::class, $price);
         self::assertSame((float)$expectedPrice, $price->getGoldCoins());
@@ -50,16 +50,16 @@ class BelongingsValueTest extends AbstractHeritageDependentTest
      */
     public function I_can_not_get_belongings_price_with_broken_points($spentBackgroundPoints)
     {
-        $heritage = TestOfBrokenBelongings::getIt($spentBackgroundPoints, $this->createHeritage(null));
+        $ancestry = TestOfBrokenPossession::getIt($spentBackgroundPoints, $this->createHeritage(null));
 
-        $heritage->getBelongingsPrice();
+        $ancestry->getBelongingsPrice();
     }
 }
 
 /** inner */
-class TestOfBrokenBelongings extends BelongingsValue
+class TestOfBrokenPossession extends PossessionValue
 {
-    public static function getIt($spentBackgroundPoints, Heritage $heritage)
+    public static function getIt($spentBackgroundPoints, Ancestry $ancestry)
     {
         return self::getEnum($spentBackgroundPoints);
     }

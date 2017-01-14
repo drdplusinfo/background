@@ -19,7 +19,7 @@ class BackgroundSkillPointsTest extends AbstractHeritageDependentTest
     {
         $backgroundSkillPoints = BackgroundSkillPoints::getIt(
             $spentBackgroundPoints = 7,
-            $heritage = $this->createHeritage($heritageValue = 456)
+            $ancestry = $this->createHeritage($ancestryValue = 456)
         );
         $tables = $this->mockery(Tables::class)
             ->shouldReceive('getBackgroundSkillsTable')

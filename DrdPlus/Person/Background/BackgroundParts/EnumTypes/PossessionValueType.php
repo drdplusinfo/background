@@ -3,15 +3,15 @@ namespace DrdPlus\Person\Background\BackgroundParts\EnumTypes;
 
 use Doctrineum\Integer\IntegerEnumType;
 
-class HeritageType extends IntegerEnumType
+class PossessionValueType extends IntegerEnumType
 {
-    const HERITAGE = 'heritage';
+    const POSSESSION_VALUE = 'possession_value';
 
     /**
      * @return string
      */
     public function getName()
     {
-        return self::HERITAGE;
+        return self::POSSESSION_VALUE;
     }
 }

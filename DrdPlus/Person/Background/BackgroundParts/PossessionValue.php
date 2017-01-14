@@ -5,9 +5,9 @@ use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractHeritageDependent
 use DrdPlus\Tables\Measurements\Price\Price;
 
 /**
- * @method static BelongingsValue getIt($spentBackgroundPoints, Heritage $heritage)
+ * @method static PossessionValue getIt($spentBackgroundPoints, Ancestry $ancestry)
  */
-class BelongingsValue extends AbstractHeritageDependent
+class PossessionValue extends AbstractHeritageDependent
 {
     /**
      * @var Price

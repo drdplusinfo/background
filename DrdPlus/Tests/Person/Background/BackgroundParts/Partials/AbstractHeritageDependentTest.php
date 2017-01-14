@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Person\Background\BackgroundParts\Partials;
 
-use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Person\Background\BackgroundParts\Ancestry;
 use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractHeritageDependent;
 use DrdPlus\Person\Background\BackgroundPoints;
 
@@ -17,30 +17,30 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
 
     /**
      * @param $value
-     * @return \Mockery\MockInterface|Heritage
+     * @return \Mockery\MockInterface|Ancestry
      */
     protected function createHeritage($value)
     {
-        $heritage = $this->mockery(Heritage::class);
-        $heritage->shouldReceive('getValue')
+        $ancestry = $this->mockery(Ancestry::class);
+        $ancestry->shouldReceive('getValue')
             ->andReturn($value);
-        $heritage->shouldReceive('getSpentBackgroundPoints')
+        $ancestry->shouldReceive('getSpentBackgroundPoints')
             ->andReturn($value);
 
-        return $heritage;
+        return $ancestry;
     }
 
     /**
      * @test
      * @dataProvider provideBackgroundPointsAndHeritage
      * @param int $spentBackgroundPoints
-     * @param int $heritageBackgroundPoints
+     * @param int $ancestryBackgroundPoints
      */
-    public function I_can_create_it($spentBackgroundPoints, $heritageBackgroundPoints)
+    public function I_can_create_it($spentBackgroundPoints, $ancestryBackgroundPoints)
     {
         /** @var AbstractHeritageDependent $sutClass */
         $sutClass = self::getSutClass();
-        $sut = $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($heritageBackgroundPoints));
+        $sut = $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($ancestryBackgroundPoints));
         self::assertSame($spentBackgroundPoints, $sut->getValue());
         self::assertSame($spentBackgroundPoints, $sut->getSpentBackgroundPoints());
     }
@@ -79,15 +79,15 @@ abstract class AbstractHeritageDependentTest extends AbstractBackgroundAdvantage
      * @expectedException \DrdPlus\Person\Background\BackgroundParts\Partials\Exceptions\TooMuchSpentBackgroundPoints
      *
      * @param int $spentBackgroundPoints
-     * @param int $heritageBackgroundPoints
+     * @param int $ancestryBackgroundPoints
      */
-    public function I_can_not_spent_more_than_three_more($spentBackgroundPoints, $heritageBackgroundPoints)
+    public function I_can_not_spent_more_than_three_more($spentBackgroundPoints, $ancestryBackgroundPoints)
     {
         /** @var AbstractHeritageDependent $sutClass */
         $sutClass = self::getSutClass();
-        self::assertGreaterThan($heritageBackgroundPoints + 3, $spentBackgroundPoints);
+        self::assertGreaterThan($ancestryBackgroundPoints + 3, $spentBackgroundPoints);
         self::assertLessThanOrEqual(8, $spentBackgroundPoints);
-        $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($heritageBackgroundPoints));
+        $sutClass::getIt($spentBackgroundPoints, $this->createHeritage($ancestryBackgroundPoints));
     }
 
     public function provideTooMuchBackgroundPointsToHeritage()

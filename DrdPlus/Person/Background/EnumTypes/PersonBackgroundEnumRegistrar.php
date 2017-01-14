@@ -2,8 +2,8 @@
 namespace DrdPlus\Person\Background\EnumTypes;
 
 use DrdPlus\Person\Background\BackgroundParts\EnumTypes\BackgroundSkillPointsType;
-use DrdPlus\Person\Background\BackgroundParts\EnumTypes\BelongingsValueType;
-use DrdPlus\Person\Background\BackgroundParts\EnumTypes\HeritageType;
+use DrdPlus\Person\Background\BackgroundParts\EnumTypes\PossessionValueType;
+use DrdPlus\Person\Background\BackgroundParts\EnumTypes\AncestryType;
 
 class PersonBackgroundEnumRegistrar
 {
@@ -11,7 +11,7 @@ class PersonBackgroundEnumRegistrar
     {
         BackgroundPointsType::registerSelf();
         BackgroundSkillPointsType::registerSelf();
-        BelongingsValueType::registerSelf();
-        HeritageType::registerSelf();
+        PossessionValueType::registerSelf();
+        AncestryType::registerSelf();
     }
 }

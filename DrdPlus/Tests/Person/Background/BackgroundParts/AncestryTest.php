@@ -1,14 +1,14 @@
 <?php
 namespace DrdPlus\Tests\Person\Background\BackgroundParts;
 
-use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Person\Background\BackgroundParts\Ancestry;
 use DrdPlus\Tests\Person\Background\BackgroundParts\Partials\AbstractBackgroundAdvantageTest;
 
-class HeritageTest extends AbstractBackgroundAdvantageTest
+class AncestryTest extends AbstractBackgroundAdvantageTest
 {
     protected function createSut($spentBackgroundPoints)
     {
-        return Heritage::getIt($spentBackgroundPoints);
+        return Ancestry::getIt($spentBackgroundPoints);
     }
 
     /**
@@ -19,10 +19,10 @@ class HeritageTest extends AbstractBackgroundAdvantageTest
      */
     public function I_can_get_heritage_name_by_background_points($spentBackgroundPoints, $expectedHeritageName)
     {
-        $heritage = Heritage::getIt($spentBackgroundPoints);
-        self::assertSame($spentBackgroundPoints, $heritage->getValue());
-        self::assertSame($spentBackgroundPoints, $heritage->getSpentBackgroundPoints());
-        self::assertSame($expectedHeritageName, $heritage->getHeritageName());
+        $ancestry = Ancestry::getIt($spentBackgroundPoints);
+        self::assertSame($spentBackgroundPoints, $ancestry->getValue());
+        self::assertSame($spentBackgroundPoints, $ancestry->getSpentBackgroundPoints());
+        self::assertSame($expectedHeritageName, $ancestry->getHeritageName());
     }
 
     public function provideBackgroundPointsWithHeritage()
@@ -48,13 +48,13 @@ class HeritageTest extends AbstractBackgroundAdvantageTest
      */
     public function I_can_not_get_heritage_name_with_broken_points($spentHeritagePoints)
     {
-        $heritage = TestOfBrokenHeritage::getIt($spentHeritagePoints);
-        $heritage->getHeritageName();
+        $ancestry = TestOfBrokenAncestry::getIt($spentHeritagePoints);
+        $ancestry->getHeritageName();
     }
 }
 
 /** inner */
-class TestOfBrokenHeritage extends Heritage
+class TestOfBrokenAncestry extends Ancestry
 {
     public static function getIt($spentBackgroundPoints)
     {

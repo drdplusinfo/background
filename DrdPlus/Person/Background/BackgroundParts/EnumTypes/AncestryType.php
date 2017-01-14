@@ -3,15 +3,15 @@ namespace DrdPlus\Person\Background\BackgroundParts\EnumTypes;
 
 use Doctrineum\Integer\IntegerEnumType;
 
-class BelongingsValueType extends IntegerEnumType
+class AncestryType extends IntegerEnumType
 {
-    const BELONGINGS_VALUE = 'belongings_value';
+    const ANCESTRY = 'ancestry';
 
     /**
      * @return string
      */
     public function getName()
     {
-        return self::BELONGINGS_VALUE;
+        return self::ANCESTRY;
     }
 }

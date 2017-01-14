@@ -1,11 +1,11 @@
 <?php
 namespace DrdPlus\Tests\Person\Background;
 
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Person\Background\Background;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
-use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
-use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Person\Background\BackgroundParts\PossessionValue;
+use DrdPlus\Person\Background\BackgroundParts\Ancestry;
 use DrdPlus\Person\Background\BackgroundPoints;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use Granam\Tests\Tools\TestWithMockery;
@@ -31,8 +31,8 @@ class BackgroundTest extends TestWithMockery
             $fateCode,
             $backgroundPointsTable = new BackgroundPointsTable(),
             $forHeritageSpentBackgroundPoints,
-            $forBackgroundSkillPointsSpentBackgroundPoints,
-            $forBelongingsSpentBackgroundPoints
+            $forBelongingsSpentBackgroundPoints,
+            $forBackgroundSkillPointsSpentBackgroundPoints
         );
 
         self::assertNull($background->getId());
@@ -41,9 +41,9 @@ class BackgroundTest extends TestWithMockery
         self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);
         self::assertSame($backgroundPointsTable->getBackgroundPointsByPlayerDecision($fateCode), $backgroundPoints->getValue());
 
-        $heritage = $background->getHeritage();
-        self::assertInstanceOf(Heritage::class, $heritage);
-        self::assertSame($forHeritageSpentBackgroundPoints, $heritage->getSpentBackgroundPoints());
+        $ancestry = $background->getAncestry();
+        self::assertInstanceOf(Ancestry::class, $ancestry);
+        self::assertSame($forHeritageSpentBackgroundPoints, $ancestry->getSpentBackgroundPoints());
 
         $backgroundSkillPoints = $background->getBackgroundSkillPoints();
         self::assertInstanceOf(BackgroundSkillPoints::class, $backgroundSkillPoints);
@@ -52,15 +52,15 @@ class BackgroundTest extends TestWithMockery
             $backgroundSkillPoints->getSpentBackgroundPoints()
         );
 
-        $belongingsValue = $background->getBelongingsValue();
-        self::assertInstanceOf(BelongingsValue::class, $belongingsValue);
-        self::assertSame($forBelongingsSpentBackgroundPoints, $belongingsValue->getSpentBackgroundPoints());
+        $possessionValue = $background->getPossessionValue();
+        self::assertInstanceOf(PossessionValue::class, $possessionValue);
+        self::assertSame($forBelongingsSpentBackgroundPoints, $possessionValue->getSpentBackgroundPoints());
 
         self::assertSame(
             $backgroundPoints->getValue()
-            - $heritage->getSpentBackgroundPoints()
+            - $ancestry->getSpentBackgroundPoints()
             - $backgroundSkillPoints->getSpentBackgroundPoints()
-            - $belongingsValue->getSpentBackgroundPoints(),
+            - $possessionValue->getSpentBackgroundPoints(),
             $background->getRemainingBackgroundPoints()
         );
     }
@@ -95,8 +95,8 @@ class BackgroundTest extends TestWithMockery
             FateCode::getIt(FateCode::GOOD_BACKGROUND),
             new BackgroundPointsTable(),
             $pointsForHeritage,
-            $pointsForBackgroundSkillPoints,
-            $pointsForBelongings
+            $pointsForBelongings,
+            $pointsForBackgroundSkillPoints
         );
     }
 }

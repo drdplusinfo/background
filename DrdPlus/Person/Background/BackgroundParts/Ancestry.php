@@ -3,12 +3,12 @@ namespace DrdPlus\Person\Background\BackgroundParts;
 
 use DrdPlus\Person\Background\BackgroundParts\Partials\AbstractBackgroundAdvantage;
 
-class Heritage extends AbstractBackgroundAdvantage
+class Ancestry extends AbstractBackgroundAdvantage
 {
     /**
      * @param int $spentBackgroundPoints
-     *
-     * @return Heritage
+
+     * @return Ancestry
      */
     public static function getIt($spentBackgroundPoints)
     {

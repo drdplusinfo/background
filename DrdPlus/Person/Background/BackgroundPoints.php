@@ -2,7 +2,7 @@
 namespace DrdPlus\Person\Background;
 
 use Doctrineum\Integer\IntegerEnum;
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 
 class BackgroundPoints extends IntegerEnum

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Person\Background\BackgroundParts\Partials;
 
-use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Person\Background\BackgroundParts\Ancestry;
 use Granam\Integer\Tools\ToInteger;
 
 abstract class AbstractHeritageDependent extends AbstractBackgroundAdvantage
@@ -10,29 +10,29 @@ abstract class AbstractHeritageDependent extends AbstractBackgroundAdvantage
 
     /**
      * @param int $spentBackgroundPoints
-     * @param Heritage $heritage
-     * @return AbstractHeritageDependent
+     * @param Ancestry $ancestry
+     * @return AbstractHeritageDependent|\Doctrineum\Integer\IntegerEnum
      * @throws \Granam\Integer\Tools\Exceptions\Runtime
      */
-    public static function getIt($spentBackgroundPoints, Heritage $heritage)
+    public static function getIt($spentBackgroundPoints, Ancestry $ancestry)
     {
         $spentBackgroundPoints = ToInteger::toInteger($spentBackgroundPoints);
         self::checkSpentBackgroundPointsLimits($spentBackgroundPoints);
-        self::checkBackgroundPointsAgainstHeritage($spentBackgroundPoints, $heritage);
+        self::checkBackgroundPointsAgainstHeritage($spentBackgroundPoints, $ancestry);
 
         return self::getEnum($spentBackgroundPoints);
     }
 
     protected static function checkBackgroundPointsAgainstHeritage(
-        $spentBackgroundPoints, Heritage $heritage
+        $spentBackgroundPoints, Ancestry $ancestry
     )
     {
-        if ($spentBackgroundPoints > ($heritage->getSpentBackgroundPoints() + self::MAX_POINTS_OVER_HERITAGE)) {
+        if ($spentBackgroundPoints > ($ancestry->getSpentBackgroundPoints() + self::MAX_POINTS_OVER_HERITAGE)) {
             throw new Exceptions\TooMuchSpentBackgroundPoints(
                 static::class . ' can not get more points than'
                 . ' heritage background points + max used background points over those of heritage '
-                . '(' . $heritage->getSpentBackgroundPoints() . ' + ' . self::MAX_POINTS_OVER_HERITAGE . ')'
-                . ' = ' . ($heritage->getSpentBackgroundPoints() + self::MAX_POINTS_OVER_HERITAGE)
+                . '(' . $ancestry->getSpentBackgroundPoints() . ' + ' . self::MAX_POINTS_OVER_HERITAGE . ')'
+                . ' = ' . ($ancestry->getSpentBackgroundPoints() + self::MAX_POINTS_OVER_HERITAGE)
                 . ', got ' . $spentBackgroundPoints
             );
         }

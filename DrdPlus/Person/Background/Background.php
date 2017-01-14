@@ -3,10 +3,10 @@ namespace DrdPlus\Person\Background;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrineum\Entity\Entity;
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Person\Background\BackgroundParts\BackgroundSkillPoints;
-use DrdPlus\Person\Background\BackgroundParts\BelongingsValue;
-use DrdPlus\Person\Background\BackgroundParts\Heritage;
+use DrdPlus\Person\Background\BackgroundParts\PossessionValue;
+use DrdPlus\Person\Background\BackgroundParts\Ancestry;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use Granam\Strict\Object\StrictObject;
 
@@ -29,10 +29,10 @@ class Background extends StrictObject implements Entity
     private $backgroundPoints;
 
     /**
-     * @var Heritage
-     * @ORM\Column(type="heritage")
+     * @var Ancestry
+     * @ORM\Column(type="ancestry")
      */
-    private $heritage;
+    private $ancestry;
 
     /**
      * @var BackgroundSkillPoints
@@ -41,57 +41,57 @@ class Background extends StrictObject implements Entity
     private $backgroundSkillPoints;
 
     /**
-     * @var BelongingsValue
-     * @ORM\Column(type="belongings_value")
+     * @var PossessionValue
+     * @ORM\Column(type="possession_value")
      */
-    private $belongingsValue;
+    private $possessionValue;
 
     /**
      * @param FateCode $fateCode
      * @param BackgroundPointsTable $backgroundPointsTable
-     * @param int $forHeritageSpentBackgroundPoints
+     * @param int $forAncestrySpentBackgroundPoints
+     * @param int $forPossessionSpentBackgroundPoints
      * @param int $forBackgroundSkillPointsSpentBackgroundPoints
-     * @param int $forBelongingsSpentBackgroundPoints
      * @return Background
      */
     public static function createIt(
         FateCode $fateCode,
         BackgroundPointsTable $backgroundPointsTable,
-        $forHeritageSpentBackgroundPoints,
-        $forBackgroundSkillPointsSpentBackgroundPoints,
-        $forBelongingsSpentBackgroundPoints
+        $forAncestrySpentBackgroundPoints,
+        $forPossessionSpentBackgroundPoints,
+        $forBackgroundSkillPointsSpentBackgroundPoints
     )
     {
         $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
-        $heritage = Heritage::getIt($forHeritageSpentBackgroundPoints);
-        $backgroundSkillPoints = BackgroundSkillPoints::getIt($forBackgroundSkillPointsSpentBackgroundPoints, $heritage);
-        $belongingsValue = BelongingsValue::getIt($forBelongingsSpentBackgroundPoints, $heritage);
+        $ancestry = Ancestry::getIt($forAncestrySpentBackgroundPoints);
+        $backgroundSkillPoints = BackgroundSkillPoints::getIt($forBackgroundSkillPointsSpentBackgroundPoints, $ancestry);
+        $possessionValue = PossessionValue::getIt($forPossessionSpentBackgroundPoints, $ancestry);
 
-        return new static($backgroundPoints, $heritage, $backgroundSkillPoints, $belongingsValue);
+        return new static($backgroundPoints, $ancestry, $backgroundSkillPoints, $possessionValue);
     }
 
     private function __construct(
         BackgroundPoints $backgroundPoints,
-        Heritage $heritage,
+        Ancestry $ancestry,
         BackgroundSkillPoints $backgroundSkillPoints,
-        BelongingsValue $belongingsValue
+        PossessionValue $possessionValue
     )
     {
-        $this->checkSumOfSpentBackgroundPoints($backgroundPoints, $heritage, $backgroundSkillPoints, $belongingsValue);
+        $this->checkSumOfSpentBackgroundPoints($backgroundPoints, $ancestry, $backgroundSkillPoints, $possessionValue);
         $this->backgroundPoints = $backgroundPoints;
-        $this->heritage = $heritage;
+        $this->ancestry = $ancestry;
         $this->backgroundSkillPoints = $backgroundSkillPoints;
-        $this->belongingsValue = $belongingsValue;
+        $this->possessionValue = $possessionValue;
     }
 
     private function checkSumOfSpentBackgroundPoints(
         BackgroundPoints $backgroundPoints,
-        Heritage $heritage,
+        Ancestry $ancestry,
         BackgroundSkillPoints $backgroundSkillPoints,
-        BelongingsValue $belongingsValue
+        PossessionValue $possessionValue
     )
     {
-        $sumOfSpentBackgroundPoints = $this->sumSpentPoints($heritage, $backgroundSkillPoints, $belongingsValue);
+        $sumOfSpentBackgroundPoints = $this->sumSpentPoints($ancestry, $backgroundSkillPoints, $possessionValue);
         if ($sumOfSpentBackgroundPoints > $backgroundPoints->getValue()) {
             throw new Exceptions\SpentTooMuchBackgroundPoints(
                 "Available background points are {$backgroundPoints->getValue()},"
@@ -101,13 +101,13 @@ class Background extends StrictObject implements Entity
     }
 
     private function sumSpentPoints(
-        Heritage $heritage,
+        Ancestry $ancestry,
         BackgroundSkillPoints $backgroundSkillPoints,
-        BelongingsValue $belongingsValue
+        PossessionValue $possessionValue
     )
     {
-        return $heritage->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
-            + $belongingsValue->getSpentBackgroundPoints();
+        return $ancestry->getSpentBackgroundPoints() + $backgroundSkillPoints->getSpentBackgroundPoints()
+            + $possessionValue->getSpentBackgroundPoints();
     }
 
     /**
@@ -127,11 +127,11 @@ class Background extends StrictObject implements Entity
     }
 
     /**
-     * @return Heritage
+     * @return Ancestry
      */
-    public function getHeritage()
+    public function getAncestry()
     {
-        return $this->heritage;
+        return $this->ancestry;
     }
 
     /**
@@ -143,11 +143,11 @@ class Background extends StrictObject implements Entity
     }
 
     /**
-     * @return BelongingsValue
+     * @return PossessionValue
      */
-    public function getBelongingsValue()
+    public function getPossessionValue()
     {
-        return $this->belongingsValue;
+        return $this->possessionValue;
     }
 
     /**
@@ -156,7 +156,7 @@ class Background extends StrictObject implements Entity
     public function getRemainingBackgroundPoints()
     {
         return $this->getBackgroundPoints()->getValue() - $this->sumSpentPoints(
-                $this->getHeritage(), $this->getBackgroundSkillPoints(), $this->getBelongingsValue()
+                $this->getAncestry(), $this->getBackgroundSkillPoints(), $this->getPossessionValue()
             );
     }
 
