@@ -5,21 +5,21 @@ use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Codes\History\ExceptionalityCode;
 use DrdPlus\Background\BackgroundParts\Partials\AbstractBackgroundAdvantage;
 use DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints;
-use DrdPlus\Tables\History\AncestryTable;
+use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 
 class Ancestry extends AbstractBackgroundAdvantage
 {
     /**
      * @param PositiveInteger $spentBackgroundPoints
-     * @param AncestryTable $ancestryTable
+     * @param Tables $tables
      * @return Ancestry|\Doctrineum\Integer\IntegerEnum
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
-    public static function getIt(PositiveInteger $spentBackgroundPoints, AncestryTable $ancestryTable)
+    public static function getIt(PositiveInteger $spentBackgroundPoints, Tables $tables)
     {
         try {
-            $ancestryTable->getAncestryCodeByBackgroundPoints($spentBackgroundPoints);
+            $tables->getAncestryTable()->getAncestryCodeByBackgroundPoints($spentBackgroundPoints);
         } catch (\DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints $unexpectedBackgroundPoints) {
             throw new TooMuchSpentBackgroundPoints($unexpectedBackgroundPoints->getMessage());
         }
@@ -36,12 +36,12 @@ class Ancestry extends AbstractBackgroundAdvantage
     }
 
     /**
-     * @param AncestryTable $ancestryTable
+     * @param Tables $tables
      * @return AncestryCode
      */
-    public function getAncestryCode(AncestryTable $ancestryTable)
+    public function getAncestryCode(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $ancestryTable->getAncestryCodeByBackgroundPoints($this->getSpentBackgroundPoints());
+        return $tables->getAncestryTable()->getAncestryCodeByBackgroundPoints($this->getSpentBackgroundPoints());
     }
 }

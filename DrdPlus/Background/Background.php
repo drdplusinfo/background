@@ -52,7 +52,7 @@ class Background extends StrictObject implements Entity
      * @param Tables $tables
      * @param PositiveInteger $forAncestrySpentBackgroundPoints
      * @param PositiveInteger $forPossessionSpentBackgroundPoints
-     * @param PositiveInteger $forBackgroundSkillPointsSpentBackgroundPoints
+     * @param PositiveInteger $forSkillPointsSpentBackgroundPoints
      * @return Background
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
@@ -61,23 +61,13 @@ class Background extends StrictObject implements Entity
         Tables $tables,
         PositiveInteger $forAncestrySpentBackgroundPoints,
         PositiveInteger $forPossessionSpentBackgroundPoints,
-        PositiveInteger $forBackgroundSkillPointsSpentBackgroundPoints
+        PositiveInteger $forSkillPointsSpentBackgroundPoints
     )
     {
         $availableBackgroundPoints = BackgroundPoints::getIt($fateCode, $tables->getBackgroundPointsTable());
-        $ancestry = Ancestry::getIt($forAncestrySpentBackgroundPoints, $tables->getAncestryTable());
-        $backgroundSkillPoints = SkillsFromBackground::getIt(
-            $forBackgroundSkillPointsSpentBackgroundPoints,
-            $ancestry,
-            $tables->getAncestryTable(),
-            $tables->getBackgroundPointsDistributionTable()
-        );
-        $possession = Possession::getIt(
-            $forPossessionSpentBackgroundPoints,
-            $ancestry,
-            $tables->getAncestryTable(),
-            $tables->getBackgroundPointsDistributionTable()
-        );
+        $ancestry = Ancestry::getIt($forAncestrySpentBackgroundPoints, $tables);
+        $backgroundSkillPoints = SkillsFromBackground::getIt($forSkillPointsSpentBackgroundPoints, $ancestry, $tables);
+        $possession = Possession::getIt($forPossessionSpentBackgroundPoints, $ancestry, $tables);
 
         return new static(
             $availableBackgroundPoints,

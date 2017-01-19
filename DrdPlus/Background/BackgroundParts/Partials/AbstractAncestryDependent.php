@@ -3,8 +3,7 @@ namespace DrdPlus\Background\BackgroundParts\Partials;
 
 use DrdPlus\Background\BackgroundParts\Ancestry;
 use DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints;
-use DrdPlus\Tables\History\AncestryTable;
-use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
+use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 
 abstract class AbstractAncestryDependent extends AbstractBackgroundAdvantage
@@ -12,23 +11,17 @@ abstract class AbstractAncestryDependent extends AbstractBackgroundAdvantage
     /**
      * @param PositiveInteger $spentBackgroundPoints
      * @param Ancestry $ancestry
-     * @param AncestryTable $ancestryTable
-     * @param BackgroundPointsDistributionTable $backgroundPointsDistributionTable
+     * @param Tables $tables
      * @return AbstractAncestryDependent|\Doctrineum\Integer\IntegerEnum
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
-    protected static function createIt(
-        PositiveInteger $spentBackgroundPoints,
-        Ancestry $ancestry,
-        AncestryTable $ancestryTable,
-        BackgroundPointsDistributionTable $backgroundPointsDistributionTable
-    )
+    protected static function createIt(PositiveInteger $spentBackgroundPoints, Ancestry $ancestry, Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $maxPointsToDistribute = $backgroundPointsDistributionTable->getMaxPointsToDistribute(
+        $maxPointsToDistribute = $tables->getBackgroundPointsDistributionTable()->getMaxPointsToDistribute(
             static::getExceptionalityCode(),
-            $ancestryTable,
-            $ancestry->getAncestryCode($ancestryTable)
+            $tables->getAncestryTable(),
+            $ancestry->getAncestryCode($tables)
         );
         if ($maxPointsToDistribute < $spentBackgroundPoints->getValue()) {
             throw new TooMuchSpentBackgroundPoints(

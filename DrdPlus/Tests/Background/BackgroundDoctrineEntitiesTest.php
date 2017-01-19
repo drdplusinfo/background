@@ -46,7 +46,7 @@ class BackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
             new Tables(),
             new PositiveIntegerObject(3),
             new PositiveIntegerObject(4),
-                new PositiveIntegerObject(3)
+            new PositiveIntegerObject(3)
         );
     }
 

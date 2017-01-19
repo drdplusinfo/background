@@ -2,10 +2,8 @@
 namespace DrdPlus\Tests\Background\BackgroundParts;
 
 use DrdPlus\Background\BackgroundParts\Possession;
-use DrdPlus\Tables\History\AncestryTable;
-use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
-use DrdPlus\Tables\History\PossessionTable;
 use DrdPlus\Tables\Measurements\Price\Price;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Background\BackgroundParts\Partials\AbstractAncestryDependentTest;
 use Granam\Integer\PositiveIntegerObject;
 
@@ -23,10 +21,9 @@ class PossessionTest extends AbstractAncestryDependentTest
         $possession = Possession::getIt(
             new PositiveIntegerObject($spentBackgroundPoints),
             $ancestry = $this->createAncestry($ancestryValue),
-            new AncestryTable(),
-            new BackgroundPointsDistributionTable()
+            new Tables()
         );
-        $price = $possession->getPrice(new PossessionTable());
+        $price = $possession->getPrice(new Tables());
 
         self::assertInstanceOf(Price::class, $price);
         self::assertSame((float)$expectedPrice, $price->getGoldCoins());

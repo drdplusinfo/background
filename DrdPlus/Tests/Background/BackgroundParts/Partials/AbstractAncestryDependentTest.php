@@ -7,12 +7,16 @@ use DrdPlus\Background\BackgroundParts\SkillsFromBackground;
 use DrdPlus\Background\BackgroundParts\Possession;
 use DrdPlus\Background\BackgroundPoints;
 use DrdPlus\Tables\History\AncestryTable;
-use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
+use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
 
 abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantageTest
 {
+    /**+
+     * @param PositiveInteger $spentBackgroundPoints
+     * @return \DrdPlus\Background\BackgroundParts\Partials\AbstractAncestryDependent|Possession|SkillsFromBackground
+     */
     protected function createSutToTestSpentBackgroundPoints(PositiveInteger $spentBackgroundPoints)
     {
         /** @var Possession|SkillsFromBackground $sutClass */
@@ -24,8 +28,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
                 $spentBackgroundPoints->getValue() + 1 /* just for example */,
                 AncestryCode::getIt(AncestryCode::NOBLE)
             ),
-            new AncestryTable(),
-            new BackgroundPointsDistributionTable()
+            new Tables()
         );
     }
 
@@ -66,8 +69,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         $sut = $sutClass::getIt(
             new PositiveIntegerObject($spentBackgroundPointsValue),
             $this->createAncestry($ancestryBackgroundPoints),
-            new AncestryTable(),
-            new BackgroundPointsDistributionTable()
+            new Tables()
         );
         self::assertSame($spentBackgroundPointsValue, $sut->getValue());
         $spentBackgroundPoints = $sut->getSpentBackgroundPoints();
@@ -120,8 +122,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         $sutClass::getIt(
             new PositiveIntegerObject($spentBackgroundPoints),
             $this->createAncestry($ancestryBackgroundPoints),
-            new AncestryTable(),
-            new BackgroundPointsDistributionTable()
+            new Tables()
         );
     }
 

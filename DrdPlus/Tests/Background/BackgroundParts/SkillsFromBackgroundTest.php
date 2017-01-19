@@ -6,9 +6,8 @@ use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Background\BackgroundParts\SkillsFromBackground;
 use DrdPlus\Professions\Profession;
-use DrdPlus\Tables\History\AncestryTable;
-use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tables\History\SkillsByBackgroundPointsTable;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Background\BackgroundParts\Partials\AbstractAncestryDependentTest;
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
@@ -23,19 +22,16 @@ class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
      */
     public function I_can_get_skill_points($skillTypeName)
     {
-        $skillType = SkillTypeCode::getIt($skillTypeName);
-        $backgroundSkillPoints = SkillsFromBackground::getIt(
-            $spentBackgroundPoints = new PositiveIntegerObject(7),
-            $ancestry = $this->createAncestry($ancestryValue = 456, AncestryCode::getIt(AncestryCode::NOBLE)),
-            new AncestryTable(),
-            new BackgroundPointsDistributionTable()
-        );
-        $skillsByBackgroundPointsTable = $this->mockery(SkillsByBackgroundPointsTable::class);
+        $tables = $this->createTables();
+        $skillsByBackgroundPointsTable = $this->createSkillsByBackgroundPointsTable();
+        $tables->shouldReceive('getSkillsByBackgroundPointsTable')
+            ->andReturn($skillsByBackgroundPointsTable);
         $professionCode = ProfessionCode::getIt(ProfessionCode::FIGHTER);
         $result = 'foo';
+        $spentBackgroundPoints = new PositiveIntegerObject(7);
         /** @noinspection PhpUnusedParameterInspection */
         $skillsByBackgroundPointsTable->shouldReceive('getSkillPoints')
-            ->with($this->type(PositiveInteger::class), $professionCode, $skillType)
+            ->with($this->type(PositiveInteger::class), $professionCode, $skillType = SkillTypeCode::getIt($skillTypeName))
             ->atLeast()->once()
             ->andReturnUsing(
                 function (PositiveInteger $givenSpentBackgroundPoints, ProfessionCode $professionCode, SkillTypeCode $skillTypeCode)
@@ -43,15 +39,19 @@ class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
                     self::assertEquals($spentBackgroundPoints, $givenSpentBackgroundPoints);
 
                     return $result;
-                })
-            ->getMock();
-        /** @var SkillsByBackgroundPointsTable $skillsByBackgroundPointsTable */
+                });
+        $tables->shouldDeferMissing();
+        $backgroundSkillPoints = SkillsFromBackground::getIt(
+            $spentBackgroundPoints,
+            $ancestry = $this->createAncestry($ancestryValue = 456, AncestryCode::getIt(AncestryCode::NOBLE)),
+            $tables
+        );
         self::assertSame(
             $result,
             $backgroundSkillPoints->getSkillPoints(
                 $this->createProfession(ProfessionCode::FIGHTER, $professionCode),
                 $skillType,
-                $skillsByBackgroundPointsTable
+                $tables
             )
         );
         switch ($skillTypeName) {
@@ -60,7 +60,7 @@ class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
                     $result,
                     $backgroundSkillPoints->getPhysicalSkillPoints(
                         $this->createProfession(ProfessionCode::FIGHTER, $professionCode),
-                        $skillsByBackgroundPointsTable
+                        $tables
                     )
                 );
                 break;
@@ -69,7 +69,7 @@ class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
                     $result,
                     $backgroundSkillPoints->getPsychicalSkillPoints(
                         $this->createProfession(ProfessionCode::FIGHTER, $professionCode),
-                        $skillsByBackgroundPointsTable
+                        $tables
                     )
                 );
                 break;
@@ -78,11 +78,27 @@ class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
                     $result,
                     $backgroundSkillPoints->getCombinedSkillPoints(
                         $this->createProfession(ProfessionCode::FIGHTER, $professionCode),
-                        $skillsByBackgroundPointsTable
+                        $tables
                     )
                 );
                 break;
         }
+    }
+
+    /**
+     * @return \Mockery\MockInterface|Tables
+     */
+    private function createTables()
+    {
+        return $this->mockery(Tables::class);
+    }
+
+    /**
+     * @return \Mockery\MockInterface|SkillsByBackgroundPointsTable
+     */
+    private function createSkillsByBackgroundPointsTable()
+    {
+        return $this->mockery(SkillsByBackgroundPointsTable::class);
     }
 
     /**
