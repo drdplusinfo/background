@@ -28,7 +28,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
                 $spentBackgroundPoints->getValue() + 1 /* just for example */,
                 AncestryCode::getIt(AncestryCode::NOBLE)
             ),
-            new Tables()
+            Tables::getIt()
         );
     }
 
@@ -69,7 +69,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         $sut = $sutClass::getIt(
             new PositiveIntegerObject($spentBackgroundPointsValue),
             $this->createAncestry($ancestryBackgroundPoints),
-            new Tables()
+            Tables::getIt()
         );
         self::assertSame($spentBackgroundPointsValue, $sut->getValue());
         $spentBackgroundPoints = $sut->getSpentBackgroundPoints();
@@ -122,7 +122,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         $sutClass::getIt(
             new PositiveIntegerObject($spentBackgroundPoints),
             $this->createAncestry($ancestryBackgroundPoints),
-            new Tables()
+            Tables::getIt()
         );
     }
 

@@ -32,7 +32,7 @@ class BackgroundTest extends TestWithMockery
     {
         $background = Background::createIt(
             $fateCode,
-            new Tables(),
+            Tables::getIt(),
             new PositiveIntegerObject($forAncestrySpentBackgroundPoints),
             new PositiveIntegerObject($forBelongingsSpentBackgroundPoints),
             new PositiveIntegerObject($forBackgroundSkillPointsSpentBackgroundPoints)
@@ -102,7 +102,7 @@ class BackgroundTest extends TestWithMockery
 
         Background::createIt(
             FateCode::getIt(FateCode::GOOD_BACKGROUND),
-            new Tables(),
+            Tables::getIt(),
             new PositiveIntegerObject($pointsForAncestry),
             new PositiveIntegerObject($pointsForBelongings),
             new PositiveIntegerObject($pointsForBackgroundSkillPoints)

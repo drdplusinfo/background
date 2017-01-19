@@ -12,7 +12,7 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
 {
     protected function createSutToTestSpentBackgroundPoints(PositiveInteger $spentBackgroundPoints)
     {
-        return Ancestry::getIt($spentBackgroundPoints, new Tables());
+        return Ancestry::getIt($spentBackgroundPoints, Tables::getIt());
     }
 
     /**

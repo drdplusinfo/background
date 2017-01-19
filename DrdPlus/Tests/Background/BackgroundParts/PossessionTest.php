@@ -21,9 +21,9 @@ class PossessionTest extends AbstractAncestryDependentTest
         $possession = Possession::getIt(
             new PositiveIntegerObject($spentBackgroundPoints),
             $ancestry = $this->createAncestry($ancestryValue),
-            new Tables()
+            Tables::getIt()
         );
-        $price = $possession->getPrice(new Tables());
+        $price = $possession->getPrice(Tables::getIt());
 
         self::assertInstanceOf(Price::class, $price);
         self::assertSame((float)$expectedPrice, $price->getGoldCoins());
