@@ -32,10 +32,10 @@ class BackgroundTest extends TestWithMockery
     {
         $background = Background::createIt(
             $fateCode,
-            Tables::getIt(),
             new PositiveIntegerObject($forAncestrySpentBackgroundPoints),
             new PositiveIntegerObject($forBelongingsSpentBackgroundPoints),
-            new PositiveIntegerObject($forBackgroundSkillPointsSpentBackgroundPoints)
+            new PositiveIntegerObject($forBackgroundSkillPointsSpentBackgroundPoints),
+            Tables::getIt()
         );
 
         self::assertNull($background->getId());
@@ -87,9 +87,7 @@ class BackgroundTest extends TestWithMockery
      */
     public function I_can_not_spent_more_than_available_points_in_total()
     {
-        $backgroundPoints = BackgroundPoints::getIt(
-            FateCode::getIt(FateCode::GOOD_BACKGROUND), new BackgroundPointsTable()
-        );
+        $backgroundPoints = BackgroundPoints::getIt(FateCode::getIt(FateCode::GOOD_BACKGROUND), Tables::getIt());
         $pointsForAncestry = 6;
         $pointsForBackgroundSkillPoints = 5;
         $pointsForBelongings = 6;
@@ -102,10 +100,10 @@ class BackgroundTest extends TestWithMockery
 
         Background::createIt(
             FateCode::getIt(FateCode::GOOD_BACKGROUND),
-            Tables::getIt(),
             new PositiveIntegerObject($pointsForAncestry),
             new PositiveIntegerObject($pointsForBelongings),
-            new PositiveIntegerObject($pointsForBackgroundSkillPoints)
+            new PositiveIntegerObject($pointsForBackgroundSkillPoints),
+            Tables::getIt()
         );
     }
 }

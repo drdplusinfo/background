@@ -20,16 +20,14 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
      */
     public function I_can_get_ancestry_code()
     {
-        $tables = $this->createTables();
-        $tables->shouldReceive('getAncestryTable')
-            ->andReturn($ancestryTable = $this->mockery(AncestryTable::class));
-        $ancestryTable->shouldReceive('getAncestryCodeByBackgroundPoints')
-            ->with($this->type(PositiveInteger::class))
-            ->andReturnUsing(function (PositiveInteger $positiveInteger) {
+        $tables = $this->createTablesWithAncestryTable(
+            function (PositiveInteger $positiveInteger) {
                 self::assertSame(6, $positiveInteger->getValue());
 
                 return 'foo';
-            });
+            }
+        );
+
         $ancestry = Ancestry::getIt(new PositiveIntegerObject(6), $tables);
         self::assertSame(6, $ancestry->getValue());
         /** @var AncestryTable $ancestryTable */
@@ -37,10 +35,18 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
     }
 
     /**
+     * @param \Closure $getAncestryCode
      * @return \Mockery\MockInterface|Tables
      */
-    private function createTables()
+    private function createTablesWithAncestryTable(\Closure $getAncestryCode)
     {
-        return $this->mockery(Tables::class);
+        $tables = $this->mockery(Tables::class);
+        $tables->shouldReceive('getAncestryTable')
+            ->andReturn($ancestryTable = $this->mockery(AncestryTable::class));
+        $ancestryTable->shouldReceive('getAncestryCodeByBackgroundPoints')
+            ->with($this->type(PositiveInteger::class))
+            ->andReturnUsing($getAncestryCode);
+
+        return $tables;
     }
 }

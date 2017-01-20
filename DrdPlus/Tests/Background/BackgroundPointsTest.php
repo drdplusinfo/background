@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Background;
 use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Background\BackgroundPoints;
 use DrdPlus\Tables\History\BackgroundPointsTable;
+use DrdPlus\Tables\Tables;
 
 class BackgroundPointsTest extends AbstractTestOfEnum
 {
@@ -13,8 +14,8 @@ class BackgroundPointsTest extends AbstractTestOfEnum
     public function I_can_get_background_points_by_fate()
     {
         $fateCode = $this->createFateCode();
-        $backgroundPointsTable = $this->createBackgroundPointsTable($fateCode, 123);
-        $backgroundPoints = BackgroundPoints::getIt($fateCode, $backgroundPointsTable);
+        $tables = $this->createTablesWithBackgroundPointsTable($fateCode, 123);
+        $backgroundPoints = BackgroundPoints::getIt($fateCode, $tables);
         self::assertSame(123, $backgroundPoints->getValue());
     }
 
@@ -29,15 +30,17 @@ class BackgroundPointsTest extends AbstractTestOfEnum
     /**
      * @param FateCode $fateCode
      * @param int $backgroundPoints
-     * @return \Mockery\MockInterface|BackgroundPointsTable
+     * @return \Mockery\MockInterface|Tables
      */
-    private function createBackgroundPointsTable(FateCode $fateCode, $backgroundPoints)
+    private function createTablesWithBackgroundPointsTable(FateCode $fateCode, $backgroundPoints)
     {
-        $backgroundPointsTable = $this->mockery(BackgroundPointsTable::class);
+        $tables = $this->mockery(Tables::class);
+        $tables->shouldReceive('getBackgroundPointsTable')
+            ->andReturn($backgroundPointsTable = $this->mockery(BackgroundPointsTable::class));
         $backgroundPointsTable->shouldReceive('getBackgroundPointsByPlayerDecision')
             ->with($fateCode)
             ->andReturn($backgroundPoints);
 
-        return $backgroundPointsTable;
+        return $tables;
     }
 }

@@ -49,22 +49,22 @@ class Background extends StrictObject implements Entity
 
     /**
      * @param FateCode $fateCode
-     * @param Tables $tables
      * @param PositiveInteger $forAncestrySpentBackgroundPoints
      * @param PositiveInteger $forPossessionSpentBackgroundPoints
      * @param PositiveInteger $forSkillPointsSpentBackgroundPoints
+     * @param Tables $tables
      * @return Background
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
     public static function createIt(
         FateCode $fateCode,
-        Tables $tables,
         PositiveInteger $forAncestrySpentBackgroundPoints,
         PositiveInteger $forPossessionSpentBackgroundPoints,
-        PositiveInteger $forSkillPointsSpentBackgroundPoints
+        PositiveInteger $forSkillPointsSpentBackgroundPoints,
+        Tables $tables
     )
     {
-        $availableBackgroundPoints = BackgroundPoints::getIt($fateCode, $tables->getBackgroundPointsTable());
+        $availableBackgroundPoints = BackgroundPoints::getIt($fateCode, $tables);
         $ancestry = Ancestry::getIt($forAncestrySpentBackgroundPoints, $tables);
         $backgroundSkillPoints = SkillsFromBackground::getIt($forSkillPointsSpentBackgroundPoints, $ancestry, $tables);
         $possession = Possession::getIt($forPossessionSpentBackgroundPoints, $ancestry, $tables);

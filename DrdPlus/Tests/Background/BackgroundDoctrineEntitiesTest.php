@@ -43,10 +43,10 @@ class BackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
     {
         return Background::createIt(
             FateCode::getIt(FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND),
-            Tables::getIt(),
             new PositiveIntegerObject(3),
             new PositiveIntegerObject(4),
-            new PositiveIntegerObject(3)
+            new PositiveIntegerObject(3),
+            Tables::getIt()
         );
     }
 
