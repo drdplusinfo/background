@@ -7,8 +7,9 @@ use DrdPlus\Background\BackgroundParts\EnumTypes\PossessionType;
 use DrdPlus\Background\BackgroundParts\EnumTypes\AncestryType;
 use DrdPlus\Background\EnumTypes\BackgroundPointsType;
 use DrdPlus\Background\EnumTypes\BackgroundEnumRegistrar;
+use PHPUnit\Framework\TestCase;
 
-class BackgroundEnumRegistrarTest extends \PHPUnit_Framework_TestCase
+class BackgroundEnumRegistrarTest extends TestCase
 {
     /**
      * @test
