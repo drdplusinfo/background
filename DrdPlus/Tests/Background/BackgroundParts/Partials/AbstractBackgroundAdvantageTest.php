@@ -72,13 +72,17 @@ abstract class AbstractBackgroundAdvantageTest extends AbstractTestOfEnum
     private function getExpectedExceptionalityCode()
     {
         $sutName = strtolower(preg_replace('~^(?:\w+[\\\]){1,6}(\w+)$~', '$1', self::getSutClass()));
+        if ($sutName === 'skillpointsfrombackground') {
+            $sutName = 'skills';
+        }
         foreach (ExceptionalityCode::getPossibleValues() as $exceptionality) {
             if (strpos($sutName, $exceptionality) === 0) {
                 return ExceptionalityCode::getIt($exceptionality);
             }
         }
 
-        throw new \LogicException('No exceptionality matches for ' . self::getSutClass());
+        throw new \LogicException('No exceptionality matches for ' . self::getSutClass()
+            . ' (was searching for \'' . $sutName . '\')');
     }
 
     /**
@@ -93,5 +97,5 @@ abstract class AbstractBackgroundAdvantageTest extends AbstractTestOfEnum
 
 class BrokenSut extends AbstractBackgroundAdvantage
 {
-    
+
 }

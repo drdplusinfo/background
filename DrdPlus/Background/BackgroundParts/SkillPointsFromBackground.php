@@ -8,13 +8,13 @@ use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 
-class SkillsFromBackground extends AbstractAncestryDependent
+class SkillPointsFromBackground extends AbstractAncestryDependent
 {
     /**
      * @param PositiveInteger $spentBackgroundPoints
      * @param Ancestry $ancestry
      * @param Tables $tables
-     * @return SkillsFromBackground|AbstractAncestryDependent
+     * @return SkillPointsFromBackground|AbstractAncestryDependent
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
     public static function getIt(PositiveInteger $spentBackgroundPoints, Ancestry $ancestry, Tables $tables)

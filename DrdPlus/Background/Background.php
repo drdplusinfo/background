@@ -4,7 +4,7 @@ namespace DrdPlus\Background;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrineum\Entity\Entity;
 use DrdPlus\Codes\History\FateCode;
-use DrdPlus\Background\BackgroundParts\SkillsFromBackground;
+use DrdPlus\Background\BackgroundParts\SkillPointsFromBackground;
 use DrdPlus\Background\BackgroundParts\Possession;
 use DrdPlus\Background\BackgroundParts\Ancestry;
 use DrdPlus\Tables\Tables;
@@ -36,8 +36,8 @@ class Background extends StrictObject implements Entity
     private $ancestry;
 
     /**
-     * @var SkillsFromBackground
-     * @ORM\Column(type="skills_from_background")
+     * @var SkillPointsFromBackground
+     * @ORM\Column(type="skill_points_from_background")
      */
     private $skillsFromBackground;
 
@@ -66,7 +66,7 @@ class Background extends StrictObject implements Entity
     {
         $availableBackgroundPoints = BackgroundPoints::getIt($fateCode, $tables);
         $ancestry = Ancestry::getIt($forAncestrySpentBackgroundPoints, $tables);
-        $backgroundSkillPoints = SkillsFromBackground::getIt($forSkillPointsSpentBackgroundPoints, $ancestry, $tables);
+        $backgroundSkillPoints = SkillPointsFromBackground::getIt($forSkillPointsSpentBackgroundPoints, $ancestry, $tables);
         $possession = Possession::getIt($forPossessionSpentBackgroundPoints, $ancestry, $tables);
 
         return new static(
@@ -80,14 +80,14 @@ class Background extends StrictObject implements Entity
     /**
      * @param BackgroundPoints $backgroundPoints
      * @param Ancestry $ancestry
-     * @param SkillsFromBackground $backgroundSkillPoints
+     * @param SkillPointsFromBackground $backgroundSkillPoints
      * @param Possession $possession
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
     private function __construct(
         BackgroundPoints $backgroundPoints,
         Ancestry $ancestry,
-        SkillsFromBackground $backgroundSkillPoints,
+        SkillPointsFromBackground $backgroundSkillPoints,
         Possession $possession
     )
     {
@@ -101,14 +101,14 @@ class Background extends StrictObject implements Entity
     /**
      * @param BackgroundPoints $backgroundPoints
      * @param Ancestry $ancestry
-     * @param SkillsFromBackground $backgroundSkillPoints
+     * @param SkillPointsFromBackground $backgroundSkillPoints
      * @param Possession $possessionValue
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
     private function checkSumOfSpentBackgroundPoints(
         BackgroundPoints $backgroundPoints,
         Ancestry $ancestry,
-        SkillsFromBackground $backgroundSkillPoints,
+        SkillPointsFromBackground $backgroundSkillPoints,
         Possession $possessionValue
     )
     {
@@ -123,13 +123,13 @@ class Background extends StrictObject implements Entity
 
     /**
      * @param Ancestry $ancestry
-     * @param SkillsFromBackground $backgroundSkillPoints
+     * @param SkillPointsFromBackground $backgroundSkillPoints
      * @param Possession $possessionValue
      * @return int
      */
     private function sumSpentPoints(
         Ancestry $ancestry,
-        SkillsFromBackground $backgroundSkillPoints,
+        SkillPointsFromBackground $backgroundSkillPoints,
         Possession $possessionValue
     )
     {
@@ -163,7 +163,7 @@ class Background extends StrictObject implements Entity
     }
 
     /**
-     * @return SkillsFromBackground
+     * @return SkillPointsFromBackground
      */
     public function getSkillsFromBackground()
     {

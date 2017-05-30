@@ -3,15 +3,15 @@ namespace DrdPlus\Background\BackgroundParts\EnumTypes;
 
 use Doctrineum\Integer\IntegerEnumType;
 
-class SkillsFromBackgroundType extends IntegerEnumType
+class SkillPointsFromBackgroundType extends IntegerEnumType
 {
-    const SKILLS_FROM_BACKGROUND = 'skills_from_background';
+    const SKILL_POINTS_FROM_BACKGROUND = 'skill_points_from_background';
 
     /**
      * @return string
      */
     public function getName()
     {
-        return self::SKILLS_FROM_BACKGROUND;
+        return self::SKILL_POINTS_FROM_BACKGROUND;
     }
 }

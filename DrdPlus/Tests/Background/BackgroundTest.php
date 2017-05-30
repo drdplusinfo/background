@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Background;
 
 use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Background\Background;
-use DrdPlus\Background\BackgroundParts\SkillsFromBackground;
+use DrdPlus\Background\BackgroundParts\SkillPointsFromBackground;
 use DrdPlus\Background\BackgroundParts\Possession;
 use DrdPlus\Background\BackgroundParts\Ancestry;
 use DrdPlus\Background\BackgroundPoints;
@@ -51,7 +51,7 @@ class BackgroundTest extends TestWithMockery
         self::assertSame($forAncestrySpentBackgroundPoints, $ancestrySpentBackgroundPoints->getValue());
 
         $backgroundSkillPoints = $background->getSkillsFromBackground();
-        self::assertInstanceOf(SkillsFromBackground::class, $backgroundSkillPoints);
+        self::assertInstanceOf(SkillPointsFromBackground::class, $backgroundSkillPoints);
         $skillPointsSpentBackgroundPoints = $backgroundSkillPoints->getSpentBackgroundPoints();
         self::assertInstanceOf(PositiveInteger::class, $skillPointsSpentBackgroundPoints);
         self::assertSame(

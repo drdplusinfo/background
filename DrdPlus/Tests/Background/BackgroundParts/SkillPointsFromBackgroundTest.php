@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Background\BackgroundParts;
 use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
-use DrdPlus\Background\BackgroundParts\SkillsFromBackground;
+use DrdPlus\Background\BackgroundParts\SkillPointsFromBackground;
 use DrdPlus\Professions\Profession;
 use DrdPlus\Tables\History\SkillsByBackgroundPointsTable;
 use DrdPlus\Tables\Tables;
@@ -12,7 +12,7 @@ use DrdPlus\Tests\Background\BackgroundParts\Partials\AbstractAncestryDependentT
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
 
-class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
+class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
 {
 
     /**
@@ -41,7 +41,7 @@ class SkillsFromBackgroundTest extends AbstractAncestryDependentTest
                     return $result;
                 });
         $tables->shouldDeferMissing();
-        $backgroundSkillPoints = SkillsFromBackground::getIt(
+        $backgroundSkillPoints = SkillPointsFromBackground::getIt(
             $spentBackgroundPoints,
             $ancestry = $this->createAncestry($ancestryValue = 456, AncestryCode::getIt(AncestryCode::NOBLE)),
             $tables

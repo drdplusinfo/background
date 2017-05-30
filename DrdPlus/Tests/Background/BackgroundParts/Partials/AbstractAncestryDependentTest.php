@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Background\BackgroundParts\Partials;
 
 use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Background\BackgroundParts\Ancestry;
-use DrdPlus\Background\BackgroundParts\SkillsFromBackground;
+use DrdPlus\Background\BackgroundParts\SkillPointsFromBackground;
 use DrdPlus\Background\BackgroundParts\Possession;
 use DrdPlus\Background\BackgroundPoints;
 use DrdPlus\Tables\History\AncestryTable;
@@ -15,11 +15,11 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
 {
     /**+
      * @param PositiveInteger $spentBackgroundPoints
-     * @return \DrdPlus\Background\BackgroundParts\Partials\AbstractAncestryDependent|Possession|SkillsFromBackground
+     * @return \DrdPlus\Background\BackgroundParts\Partials\AbstractAncestryDependent|Possession|SkillPointsFromBackground
      */
     protected function createSutToTestSpentBackgroundPoints(PositiveInteger $spentBackgroundPoints)
     {
-        /** @var Possession|SkillsFromBackground $sutClass */
+        /** @var Possession|SkillPointsFromBackground $sutClass */
         $sutClass = self::getSutClass();
 
         return $sutClass::getIt(
@@ -64,7 +64,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         $ancestryBackgroundPoints
     )
     {
-        /** @var Possession|SkillsFromBackground $sutClass */
+        /** @var Possession|SkillPointsFromBackground $sutClass */
         $sutClass = self::getSutClass();
         $sut = $sutClass::getIt(
             new PositiveIntegerObject($spentBackgroundPointsValue),
@@ -115,7 +115,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
      */
     public function I_can_not_spent_more_than_three_over_ancestry($spentBackgroundPoints, $ancestryBackgroundPoints)
     {
-        /** @var Possession|SkillsFromBackground $sutClass */
+        /** @var Possession|SkillPointsFromBackground $sutClass */
         $sutClass = self::getSutClass();
         self::assertGreaterThan($ancestryBackgroundPoints + 3, $spentBackgroundPoints);
         self::assertLessThanOrEqual(8, $spentBackgroundPoints);
