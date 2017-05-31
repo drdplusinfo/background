@@ -50,7 +50,7 @@ class BackgroundTest extends TestWithMockery
         self::assertInstanceOf(PositiveInteger::class, $ancestrySpentBackgroundPoints);
         self::assertSame($forAncestrySpentBackgroundPoints, $ancestrySpentBackgroundPoints->getValue());
 
-        $backgroundSkillPoints = $background->getSkillsFromBackground();
+        $backgroundSkillPoints = $background->getSkillPointsFromBackground();
         self::assertInstanceOf(SkillPointsFromBackground::class, $backgroundSkillPoints);
         $skillPointsSpentBackgroundPoints = $backgroundSkillPoints->getSpentBackgroundPoints();
         self::assertInstanceOf(PositiveInteger::class, $skillPointsSpentBackgroundPoints);

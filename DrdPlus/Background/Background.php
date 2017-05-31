@@ -39,7 +39,7 @@ class Background extends StrictObject implements Entity
      * @var SkillPointsFromBackground
      * @ORM\Column(type="skill_points_from_background")
      */
-    private $skillsFromBackground;
+    private $skillPointsFromBackground;
 
     /**
      * @var Possession
@@ -80,21 +80,21 @@ class Background extends StrictObject implements Entity
     /**
      * @param BackgroundPoints $backgroundPoints
      * @param Ancestry $ancestry
-     * @param SkillPointsFromBackground $backgroundSkillPoints
+     * @param SkillPointsFromBackground $skillPointsFromBackground
      * @param Possession $possession
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
     private function __construct(
         BackgroundPoints $backgroundPoints,
         Ancestry $ancestry,
-        SkillPointsFromBackground $backgroundSkillPoints,
+        SkillPointsFromBackground $skillPointsFromBackground,
         Possession $possession
     )
     {
-        $this->checkSumOfSpentBackgroundPoints($backgroundPoints, $ancestry, $backgroundSkillPoints, $possession);
+        $this->checkSumOfSpentBackgroundPoints($backgroundPoints, $ancestry, $skillPointsFromBackground, $possession);
         $this->backgroundPoints = $backgroundPoints;
         $this->ancestry = $ancestry;
-        $this->skillsFromBackground = $backgroundSkillPoints;
+        $this->skillPointsFromBackground = $skillPointsFromBackground;
         $this->possession = $possession;
     }
 
@@ -165,9 +165,9 @@ class Background extends StrictObject implements Entity
     /**
      * @return SkillPointsFromBackground
      */
-    public function getSkillsFromBackground()
+    public function getSkillPointsFromBackground()
     {
-        return $this->skillsFromBackground;
+        return $this->skillPointsFromBackground;
     }
 
     /**
@@ -184,7 +184,7 @@ class Background extends StrictObject implements Entity
     public function getRemainingBackgroundPoints()
     {
         return $this->getBackgroundPoints()->getValue() - $this->sumSpentPoints(
-                $this->getAncestry(), $this->getSkillsFromBackground(), $this->getPossession()
+                $this->getAncestry(), $this->getSkillPointsFromBackground(), $this->getPossession()
             );
     }
 
