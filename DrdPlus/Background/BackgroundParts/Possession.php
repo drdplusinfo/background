@@ -24,7 +24,7 @@ class Possession extends AbstractAncestryDependent
     /**
      * @return ExceptionalityCode
      */
-    public static function getExceptionalityCode()
+    public static function getExceptionalityCode(): ExceptionalityCode
     {
         return ExceptionalityCode::getIt(ExceptionalityCode::POSSESSION);
     }
@@ -38,11 +38,12 @@ class Possession extends AbstractAncestryDependent
      * @param Tables $tables
      * @return Price
      */
-    public function getPrice(Tables $tables)
+    public function getPrice(Tables $tables): Price
     {
         if ($this->belongingsPrice === null) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $priceValue = $tables->getPossessionTable()->getPossessionAsGoldCoins($this->getSpentBackgroundPoints());
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $this->belongingsPrice = new Price($priceValue, Price::GOLD_COIN);
         }
 

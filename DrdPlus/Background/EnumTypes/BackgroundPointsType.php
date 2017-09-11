@@ -10,7 +10,7 @@ class BackgroundPointsType extends IntegerEnumType
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return self::BACKGROUND_POINTS;
     }

@@ -10,7 +10,7 @@ class SkillPointsFromBackgroundType extends IntegerEnumType
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return self::SKILL_POINTS_FROM_BACKGROUND;
     }

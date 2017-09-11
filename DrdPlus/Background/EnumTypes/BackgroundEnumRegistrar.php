@@ -7,7 +7,7 @@ use DrdPlus\Background\BackgroundParts\EnumTypes\AncestryType;
 
 class BackgroundEnumRegistrar
 {
-    public static function registerAll()
+    public static function registerAll(): void
     {
         BackgroundPointsType::registerSelf();
         SkillPointsFromBackgroundType::registerSelf();
