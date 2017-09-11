@@ -20,26 +20,20 @@ class BackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
     {
         $backgroundReflection = new \ReflectionClass(Background::class);
 
-        return [
-            dirname($backgroundReflection->getFileName()),
-        ];
+        return dirname($backgroundReflection->getFileName());
     }
 
     protected function getExpectedEntityClasses()
     {
-        return [
-            Background::class,
-        ];
+        return [Background::class];
     }
 
-    protected function createEntitiesToPersist()
+    protected function createEntitiesToPersist(): array
     {
-        return [
-            self::createBackgroundEntity(),
-        ];
+        return [self::createBackgroundEntity()];
     }
 
-    public static function createBackgroundEntity()
+    public static function createBackgroundEntity(): Background
     {
         return Background::createIt(
             FateCode::getIt(FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND),
