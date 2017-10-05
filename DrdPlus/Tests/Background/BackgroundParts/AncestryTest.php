@@ -2,11 +2,13 @@
 namespace DrdPlus\Tests\Background\BackgroundParts;
 
 use DrdPlus\Background\BackgroundParts\Ancestry;
+use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Background\BackgroundParts\Partials\AbstractBackgroundAdvantageTest;
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
+use Mockery\MockInterface;
 
 class AncestryTest extends AbstractBackgroundAdvantageTest
 {
@@ -20,18 +22,19 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
      */
     public function I_can_get_ancestry_code()
     {
+        $ancestryCode = $this->createAncestryCode();
         $tables = $this->createTablesWithAncestryTable(
-            function (PositiveInteger $positiveInteger) {
+            function (PositiveInteger $positiveInteger) use ($ancestryCode) {
                 self::assertSame(6, $positiveInteger->getValue());
 
-                return 'foo';
+                return $ancestryCode;
             }
         );
 
         $ancestry = Ancestry::getIt(new PositiveIntegerObject(6), $tables);
         self::assertSame(6, $ancestry->getValue());
         /** @var AncestryTable $ancestryTable */
-        self::assertSame('foo', $ancestry->getAncestryCode($tables));
+        self::assertSame($ancestryCode, $ancestry->getAncestryCode($tables));
     }
 
     /**
@@ -44,9 +47,18 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
         $tables->shouldReceive('getAncestryTable')
             ->andReturn($ancestryTable = $this->mockery(AncestryTable::class));
         $ancestryTable->shouldReceive('getAncestryCodeByBackgroundPoints')
+            ->atLeast()->once()
             ->with($this->type(PositiveInteger::class))
             ->andReturnUsing($getAncestryCode);
 
         return $tables;
+    }
+
+    /**
+     * @return AncestryCode|MockInterface
+     */
+    private function createAncestryCode(): AncestryCode
+    {
+        return $this->mockery(AncestryCode::class);
     }
 }

@@ -11,7 +11,7 @@ abstract class AbstractBackgroundAdvantage extends IntegerEnum
      * @return ExceptionalityCode
      * @throws \DrdPlus\Background\BackgroundParts\Partials\Exceptions\UnknownExceptionality
      */
-    public static function getExceptionalityCode()
+    public static function getExceptionalityCode(): ExceptionalityCode
     {
         throw new Exceptions\UnknownExceptionality(
             'Exceptionality code is not known for ' . static::class
@@ -26,7 +26,7 @@ abstract class AbstractBackgroundAdvantage extends IntegerEnum
      *
      * @return PositiveIntegerObject
      */
-    public function getSpentBackgroundPoints()
+    public function getSpentBackgroundPoints(): PositiveIntegerObject
     {
         if ($this->spentBackgroundPoints === null) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

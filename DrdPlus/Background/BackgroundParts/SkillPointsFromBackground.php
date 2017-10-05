@@ -17,7 +17,7 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
      * @return SkillPointsFromBackground|AbstractAncestryDependent
      * @throws \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      */
-    public static function getIt(PositiveInteger $spentBackgroundPoints, Ancestry $ancestry, Tables $tables)
+    public static function getIt(PositiveInteger $spentBackgroundPoints, Ancestry $ancestry, Tables $tables): SkillPointsFromBackground
     {
         return self::createIt($spentBackgroundPoints, $ancestry, $tables);
     }
@@ -25,7 +25,7 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
     /**
      * @return ExceptionalityCode
      */
-    public static function getExceptionalityCode()
+    public static function getExceptionalityCode(): ExceptionalityCode
     {
         return ExceptionalityCode::getIt(ExceptionalityCode::SKILLS);
     }
@@ -36,7 +36,7 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
      * @param Tables $tables
      * @return int
      */
-    public function getSkillPoints(Profession $profession, SkillTypeCode $skillTypeCode, Tables $tables)
+    public function getSkillPoints(Profession $profession, SkillTypeCode $skillTypeCode, Tables $tables): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $tables->getSkillsByBackgroundPointsTable()->getSkillPoints(
@@ -51,7 +51,7 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
      * @param Tables $tables
      * @return int
      */
-    public function getPhysicalSkillPoints(Profession $profession, Tables $tables)
+    public function getPhysicalSkillPoints(Profession $profession, Tables $tables): int
     {
         return $this->getSkillPoints($profession, SkillTypeCode::getIt(SkillTypeCode::PHYSICAL), $tables);
     }
@@ -61,7 +61,7 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
      * @param Tables $tables
      * @return int
      */
-    public function getPsychicalSkillPoints(Profession $profession, Tables $tables)
+    public function getPsychicalSkillPoints(Profession $profession, Tables $tables): int
     {
         return $this->getSkillPoints($profession, SkillTypeCode::getIt(SkillTypeCode::PSYCHICAL), $tables);
     }
@@ -71,7 +71,7 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
      * @param Tables $tables
      * @return int
      */
-    public function getCombinedSkillPoints(Profession $profession, Tables $tables)
+    public function getCombinedSkillPoints(Profession $profession, Tables $tables): int
     {
         return $this->getSkillPoints($profession, SkillTypeCode::getIt(SkillTypeCode::COMBINED), $tables);
     }

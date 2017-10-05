@@ -27,14 +27,14 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
         $tables->shouldReceive('getSkillsByBackgroundPointsTable')
             ->andReturn($skillsByBackgroundPointsTable);
         $professionCode = ProfessionCode::getIt(ProfessionCode::FIGHTER);
-        $result = 'foo';
+        $result = 123;
         $spentBackgroundPoints = new PositiveIntegerObject(7);
         /** @noinspection PhpUnusedParameterInspection */
         $skillsByBackgroundPointsTable->shouldReceive('getSkillPoints')
-            ->with($this->type(PositiveInteger::class), $professionCode, $skillType = SkillTypeCode::getIt($skillTypeName))
             ->atLeast()->once()
+            ->with($this->type(PositiveInteger::class), $professionCode, $skillType = SkillTypeCode::getIt($skillTypeName))
             ->andReturnUsing(
-                function (PositiveInteger $givenSpentBackgroundPoints, ProfessionCode $professionCode, SkillTypeCode $skillTypeCode)
+                function (PositiveInteger $givenSpentBackgroundPoints)
                 use ($spentBackgroundPoints, $result) {
                     self::assertEquals($spentBackgroundPoints, $givenSpentBackgroundPoints);
 
@@ -112,10 +112,7 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
         $profession->shouldReceive('getValue')
             ->andReturn($professionName);
         $profession->shouldReceive('getCode')
-            ->andReturn($professionCode !== null
-                ? $professionCode
-                : ProfessionCode::getIt($professionName)
-            );
+            ->andReturn($professionCode ?? ProfessionCode::getIt($professionName));
 
         return $profession;
     }
