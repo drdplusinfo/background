@@ -5,7 +5,6 @@ use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Background\BackgroundParts\Ancestry;
 use DrdPlus\Background\BackgroundParts\SkillPointsFromBackground;
 use DrdPlus\Background\BackgroundParts\Possession;
-use DrdPlus\Background\BackgroundPoints;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
@@ -37,7 +36,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
      * @param AncestryCode $ancestryCode
      * @return \Mockery\MockInterface|Ancestry
      */
-    protected function createAncestry($value, AncestryCode $ancestryCode = null)
+    protected function createAncestry(int $value, AncestryCode $ancestryCode = null)
     {
         $ancestry = $this->mockery(Ancestry::class);
         $ancestry->shouldReceive('getValue')
@@ -60,9 +59,9 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
      * @param int $ancestryBackgroundPoints
      */
     public function I_can_create_it(
-        $spentBackgroundPointsValue,
-        $ancestryBackgroundPoints
-    )
+        int $spentBackgroundPointsValue,
+        int $ancestryBackgroundPoints
+    ): void
     {
         /** @var Possession|SkillPointsFromBackground $sutClass */
         $sutClass = self::getSutClass();
@@ -73,12 +72,11 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         );
         self::assertSame($spentBackgroundPointsValue, $sut->getValue());
         $spentBackgroundPoints = $sut->getSpentBackgroundPoints();
-        self::assertInstanceOf(PositiveInteger::class, $spentBackgroundPoints);
         self::assertSame($spentBackgroundPointsValue, $spentBackgroundPoints->getValue());
         self::assertSame($spentBackgroundPoints, $sut->getSpentBackgroundPoints(), 'Expected same instance');
     }
 
-    public function provideBackgroundPointsAndAncestry()
+    public function provideBackgroundPointsAndAncestry(): array
     {
         return [
             [0, 0],
@@ -94,26 +92,13 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
     }
 
     /**
-     * @param $value
-     * @return \Mockery\MockInterface|BackgroundPoints
-     */
-    protected function createBackgroundPoints($value)
-    {
-        $points = $this->mockery(BackgroundPoints::class);
-        $points->shouldReceive('getValue')
-            ->andReturn($value);
-
-        return $points;
-    }
-
-    /**
      * @test
      * @dataProvider provideTooMuchBackgroundPointsToAncestry
      * @expectedException \DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints
      * @param int $spentBackgroundPoints
      * @param int $ancestryBackgroundPoints
      */
-    public function I_can_not_spent_more_than_three_over_ancestry($spentBackgroundPoints, $ancestryBackgroundPoints)
+    public function I_can_not_spent_more_than_three_over_ancestry(int $spentBackgroundPoints, int $ancestryBackgroundPoints): void
     {
         /** @var Possession|SkillPointsFromBackground $sutClass */
         $sutClass = self::getSutClass();
@@ -126,7 +111,7 @@ abstract class AbstractAncestryDependentTest extends AbstractBackgroundAdvantage
         );
     }
 
-    public function provideTooMuchBackgroundPointsToAncestry()
+    public function provideTooMuchBackgroundPointsToAncestry(): array
     {
         return [
             [4, 0],

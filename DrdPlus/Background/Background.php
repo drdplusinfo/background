@@ -62,7 +62,7 @@ class Background extends StrictObject implements Entity
         PositiveInteger $forPossessionSpentBackgroundPoints,
         PositiveInteger $forSkillPointsSpentBackgroundPoints,
         Tables $tables
-    )
+    ): Background
     {
         $availableBackgroundPoints = BackgroundPoints::getIt($fateCode, $tables);
         $ancestry = Ancestry::getIt($forAncestrySpentBackgroundPoints, $tables);
@@ -110,7 +110,7 @@ class Background extends StrictObject implements Entity
         Ancestry $ancestry,
         SkillPointsFromBackground $backgroundSkillPoints,
         Possession $possessionValue
-    )
+    ): void
     {
         $sumOfSpentBackgroundPoints = $this->sumSpentPoints($ancestry, $backgroundSkillPoints, $possessionValue);
         if ($sumOfSpentBackgroundPoints > $backgroundPoints->getValue()) {
@@ -131,7 +131,7 @@ class Background extends StrictObject implements Entity
         Ancestry $ancestry,
         SkillPointsFromBackground $backgroundSkillPoints,
         Possession $possessionValue
-    )
+    ): int
     {
         return $ancestry->getSpentBackgroundPoints()->getValue()
             + $backgroundSkillPoints->getSpentBackgroundPoints()->getValue()
@@ -139,9 +139,9 @@ class Background extends StrictObject implements Entity
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -149,7 +149,7 @@ class Background extends StrictObject implements Entity
     /**
      * @return BackgroundPoints
      */
-    public function getBackgroundPoints()
+    public function getBackgroundPoints(): BackgroundPoints
     {
         return $this->backgroundPoints;
     }
@@ -157,7 +157,7 @@ class Background extends StrictObject implements Entity
     /**
      * @return Ancestry
      */
-    public function getAncestry()
+    public function getAncestry(): Ancestry
     {
         return $this->ancestry;
     }
@@ -165,7 +165,7 @@ class Background extends StrictObject implements Entity
     /**
      * @return SkillPointsFromBackground
      */
-    public function getSkillPointsFromBackground()
+    public function getSkillPointsFromBackground(): SkillPointsFromBackground
     {
         return $this->skillPointsFromBackground;
     }
@@ -173,7 +173,7 @@ class Background extends StrictObject implements Entity
     /**
      * @return Possession
      */
-    public function getPossession()
+    public function getPossession(): Possession
     {
         return $this->possession;
     }
@@ -181,7 +181,7 @@ class Background extends StrictObject implements Entity
     /**
      * @return int
      */
-    public function getRemainingBackgroundPoints()
+    public function getRemainingBackgroundPoints(): int
     {
         return $this->getBackgroundPoints()->getValue() - $this->sumSpentPoints(
                 $this->getAncestry(), $this->getSkillPointsFromBackground(), $this->getPossession()

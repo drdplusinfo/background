@@ -14,7 +14,7 @@ class BackgroundEnumRegistrarTest extends TestCase
     /**
      * @test
      */
-    public function I_can_register_all_enums_at_once()
+    public function I_can_register_all_enums_at_once(): void
     {
         BackgroundEnumRegistrar::registerAll();
 

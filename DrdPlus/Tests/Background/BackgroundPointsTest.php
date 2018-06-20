@@ -11,7 +11,7 @@ class BackgroundPointsTest extends AbstractTestOfEnum
     /**
      * @test
      */
-    public function I_can_get_background_points_by_fate()
+    public function I_can_get_background_points_by_fate(): void
     {
         $fateCode = $this->createFateCode();
         $tables = $this->createTablesWithBackgroundPointsTable($fateCode, 123);
@@ -22,7 +22,7 @@ class BackgroundPointsTest extends AbstractTestOfEnum
     /**
      * @return \Mockery\MockInterface|FateCode
      */
-    private function createFateCode()
+    private function createFateCode(): FateCode
     {
         return $this->mockery(FateCode::class);
     }
@@ -32,7 +32,7 @@ class BackgroundPointsTest extends AbstractTestOfEnum
      * @param int $backgroundPoints
      * @return \Mockery\MockInterface|Tables
      */
-    private function createTablesWithBackgroundPointsTable(FateCode $fateCode, $backgroundPoints)
+    private function createTablesWithBackgroundPointsTable(FateCode $fateCode, $backgroundPoints): Tables
     {
         $tables = $this->mockery(Tables::class);
         $tables->shouldReceive('getBackgroundPointsTable')

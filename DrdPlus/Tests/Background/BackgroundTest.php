@@ -9,7 +9,6 @@ use DrdPlus\Background\BackgroundParts\Ancestry;
 use DrdPlus\Background\BackgroundPoints;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tables\Tables;
-use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -25,10 +24,10 @@ class BackgroundTest extends TestWithMockery
      */
     public function I_can_create_background(
         FateCode $fateCode,
-        $forAncestrySpentBackgroundPoints,
-        $forBackgroundSkillPointsSpentBackgroundPoints,
-        $forBelongingsSpentBackgroundPoints
-    )
+        int $forAncestrySpentBackgroundPoints,
+        int $forBackgroundSkillPointsSpentBackgroundPoints,
+        int $forBelongingsSpentBackgroundPoints
+    ): void
     {
         $background = Background::createIt(
             $fateCode,
@@ -47,13 +46,11 @@ class BackgroundTest extends TestWithMockery
         $ancestry = $background->getAncestry();
         self::assertInstanceOf(Ancestry::class, $ancestry);
         $ancestrySpentBackgroundPoints = $ancestry->getSpentBackgroundPoints();
-        self::assertInstanceOf(PositiveInteger::class, $ancestrySpentBackgroundPoints);
         self::assertSame($forAncestrySpentBackgroundPoints, $ancestrySpentBackgroundPoints->getValue());
 
         $backgroundSkillPoints = $background->getSkillPointsFromBackground();
         self::assertInstanceOf(SkillPointsFromBackground::class, $backgroundSkillPoints);
         $skillPointsSpentBackgroundPoints = $backgroundSkillPoints->getSpentBackgroundPoints();
-        self::assertInstanceOf(PositiveInteger::class, $skillPointsSpentBackgroundPoints);
         self::assertSame(
             $forBackgroundSkillPointsSpentBackgroundPoints,
             $skillPointsSpentBackgroundPoints->getValue()
@@ -62,7 +59,6 @@ class BackgroundTest extends TestWithMockery
         $possession = $background->getPossession();
         self::assertInstanceOf(Possession::class, $possession);
         $possessionSpentBackgroundPoints = $possession->getSpentBackgroundPoints();
-        self::assertInstanceOf(PositiveInteger::class, $possessionSpentBackgroundPoints);
         self::assertSame($forBelongingsSpentBackgroundPoints, $possessionSpentBackgroundPoints->getValue());
 
         self::assertSame(

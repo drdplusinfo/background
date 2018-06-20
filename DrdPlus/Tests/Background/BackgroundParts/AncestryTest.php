@@ -12,7 +12,7 @@ use Mockery\MockInterface;
 
 class AncestryTest extends AbstractBackgroundAdvantageTest
 {
-    protected function createSutToTestSpentBackgroundPoints(PositiveInteger $spentBackgroundPoints)
+    protected function createSutToTestSpentBackgroundPoints(PositiveInteger $spentBackgroundPoints): Ancestry
     {
         return Ancestry::getIt($spentBackgroundPoints, Tables::getIt());
     }
@@ -20,7 +20,7 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
     /**
      * @test
      */
-    public function I_can_get_ancestry_code()
+    public function I_can_get_ancestry_code(): void
     {
         $ancestryCode = $this->createAncestryCode();
         $tables = $this->createTablesWithAncestryTable(
@@ -41,7 +41,7 @@ class AncestryTest extends AbstractBackgroundAdvantageTest
      * @param \Closure $getAncestryCode
      * @return \Mockery\MockInterface|Tables
      */
-    private function createTablesWithAncestryTable(\Closure $getAncestryCode)
+    private function createTablesWithAncestryTable(\Closure $getAncestryCode): Tables
     {
         $tables = $this->mockery(Tables::class);
         $tables->shouldReceive('getAncestryTable')

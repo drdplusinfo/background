@@ -20,7 +20,7 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
      * @dataProvider provideSkillType
      * @param string $skillTypeName
      */
-    public function I_can_get_skill_points($skillTypeName)
+    public function I_can_get_skill_points(string $skillTypeName): void
     {
         $tables = $this->createTables();
         $skillsByBackgroundPointsTable = $this->createSkillsByBackgroundPointsTable();
@@ -40,7 +40,7 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
 
                     return $result;
                 });
-        $tables->shouldDeferMissing();
+        $tables->makePartial();
         $backgroundSkillPoints = SkillPointsFromBackground::getIt(
             $spentBackgroundPoints,
             $ancestry = $this->createAncestry($ancestryValue = 456, AncestryCode::getIt(AncestryCode::NOBLE)),
@@ -88,7 +88,7 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
     /**
      * @return \Mockery\MockInterface|Tables
      */
-    private function createTables()
+    private function createTables(): Tables
     {
         return $this->mockery(Tables::class);
     }
@@ -96,7 +96,7 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
     /**
      * @return \Mockery\MockInterface|SkillsByBackgroundPointsTable
      */
-    private function createSkillsByBackgroundPointsTable()
+    private function createSkillsByBackgroundPointsTable(): SkillsByBackgroundPointsTable
     {
         return $this->mockery(SkillsByBackgroundPointsTable::class);
     }
@@ -106,7 +106,7 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
      * @param ProfessionCode $professionCode
      * @return \Mockery\MockInterface|Profession
      */
-    private function createProfession($professionName, ProfessionCode $professionCode = null)
+    private function createProfession(string $professionName, ProfessionCode $professionCode = null): Profession
     {
         $profession = $this->mockery(Profession::class);
         $profession->shouldReceive('getValue')
@@ -117,9 +117,9 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
         return $profession;
     }
 
-    public function provideSkillType()
+    public function provideSkillType(): array
     {
-        return array_map(
+        return \array_map(
             function ($value) {
                 return [$value];
             },

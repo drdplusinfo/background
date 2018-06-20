@@ -10,20 +10,24 @@ use Granam\Integer\PositiveIntegerObject;
 
 class BackgroundDoctrineEntitiesTest extends AbstractDoctrineEntitiesTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         BackgroundEnumRegistrar::registerAll();
         parent::setUp();
     }
 
-    protected function getDirsWithEntities()
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
+    protected function getDirsWithEntities(): array
     {
         $backgroundReflection = new \ReflectionClass(Background::class);
 
-        return dirname($backgroundReflection->getFileName());
+        return [\dirname($backgroundReflection->getFileName())];
     }
 
-    protected function getExpectedEntityClasses()
+    protected function getExpectedEntityClasses(): array
     {
         return [Background::class];
     }

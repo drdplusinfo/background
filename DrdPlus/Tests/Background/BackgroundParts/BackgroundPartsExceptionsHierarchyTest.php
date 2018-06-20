@@ -9,15 +9,16 @@ class BackgroundPartsExceptionsHierarchyTest extends AbstractExceptionsHierarchy
     /**
      * @return string
      */
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
-        return str_replace('\Tests', '', __NAMESPACE__);
+        return \str_replace('\Tests', '', __NAMESPACE__);
     }
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         $rootReflection = new \ReflectionClass(Background::class);
 

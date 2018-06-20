@@ -50,7 +50,7 @@ abstract class AbstractBackgroundAdvantageTest extends AbstractTestOfEnum
      * @param int $value
      * @return \Mockery\MockInterface|BackgroundPoints
      */
-    protected function createBackgroundPoints($value)
+    protected function createBackgroundPoints(int $value): BackgroundPoints
     {
         $backgroundPoints = $this->mockery(BackgroundPoints::class);
         $backgroundPoints->shouldReceive('getValue')

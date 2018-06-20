@@ -2,7 +2,6 @@
 namespace DrdPlus\Tests\Background\BackgroundParts;
 
 use DrdPlus\Background\BackgroundParts\Possession;
-use DrdPlus\Tables\Measurements\Price\Price;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Background\BackgroundParts\Partials\AbstractAncestryDependentTest;
 use Granam\Integer\PositiveIntegerObject;
@@ -16,7 +15,7 @@ class PossessionTest extends AbstractAncestryDependentTest
      * @param int $ancestryValue
      * @param int $expectedPrice
      */
-    public function I_can_get_possession_price($spentBackgroundPoints, $ancestryValue, $expectedPrice)
+    public function I_can_get_possession_price(int $spentBackgroundPoints, int $ancestryValue, int $expectedPrice): void
     {
         $possession = Possession::getIt(
             new PositiveIntegerObject($spentBackgroundPoints),
@@ -24,13 +23,11 @@ class PossessionTest extends AbstractAncestryDependentTest
             Tables::getIt()
         );
         $price = $possession->getPrice(Tables::getIt());
-
-        self::assertInstanceOf(Price::class, $price);
         self::assertSame((float)$expectedPrice, $price->getGoldCoins());
         self::assertSame((float)$expectedPrice, $price->getValue()); // the base value is in gold already
     }
 
-    public function provideBackgroundPointsAndAncestryAndPrice()
+    public function provideBackgroundPointsAndAncestryAndPrice(): array
     {
         return [
             [0, 0, 1],
