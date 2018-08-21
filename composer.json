@@ -1,7 +1,7 @@
 {
   "name": "drdplus/background",
   "license": "MIT",
-  "type": "project",
+  "type": "library",
   "description": "Background of a person for Drd+",
   "autoload": {
     "psr-4": {
