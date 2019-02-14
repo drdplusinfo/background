@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace DrdPlus\Tests\Background\BackgroundParts;
 
 use DrdPlus\Codes\History\AncestryCode;

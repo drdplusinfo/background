@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace DrdPlus\Tests\Background;
 
 use DrdPlus\Codes\History\FateCode;
@@ -36,8 +38,6 @@ class BackgroundTest extends TestWithMockery
             new PositiveIntegerObject($forBackgroundSkillPointsSpentBackgroundPoints),
             Tables::getIt()
         );
-
-        self::assertNull($background->getId());
 
         $backgroundPoints = $background->getBackgroundPoints();
         self::assertInstanceOf(BackgroundPoints::class, $backgroundPoints);

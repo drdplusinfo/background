@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace DrdPlus\Background\BackgroundParts;
 
 use DrdPlus\Codes\History\ExceptionalityCode;
@@ -22,23 +24,13 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
         return self::createIt($spentBackgroundPoints, $ancestry, $tables);
     }
 
-    /**
-     * @return ExceptionalityCode
-     */
     public static function getExceptionalityCode(): ExceptionalityCode
     {
         return ExceptionalityCode::getIt(ExceptionalityCode::SKILLS);
     }
 
-    /**
-     * @param Profession $profession
-     * @param SkillTypeCode $skillTypeCode
-     * @param Tables $tables
-     * @return int
-     */
     public function getSkillPoints(Profession $profession, SkillTypeCode $skillTypeCode, Tables $tables): int
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $tables->getSkillsByBackgroundPointsTable()->getSkillPoints(
             $this->getSpentBackgroundPoints(),
             $profession->getCode(),
@@ -46,31 +38,16 @@ class SkillPointsFromBackground extends AbstractAncestryDependent
         );
     }
 
-    /**
-     * @param Profession $profession
-     * @param Tables $tables
-     * @return int
-     */
     public function getPhysicalSkillPoints(Profession $profession, Tables $tables): int
     {
         return $this->getSkillPoints($profession, SkillTypeCode::getIt(SkillTypeCode::PHYSICAL), $tables);
     }
 
-    /**
-     * @param Profession $profession
-     * @param Tables $tables
-     * @return int
-     */
     public function getPsychicalSkillPoints(Profession $profession, Tables $tables): int
     {
         return $this->getSkillPoints($profession, SkillTypeCode::getIt(SkillTypeCode::PSYCHICAL), $tables);
     }
 
-    /**
-     * @param Profession $profession
-     * @param Tables $tables
-     * @return int
-     */
     public function getCombinedSkillPoints(Profession $profession, Tables $tables): int
     {
         return $this->getSkillPoints($profession, SkillTypeCode::getIt(SkillTypeCode::COMBINED), $tables);

@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
+
 namespace DrdPlus\Background;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrineum\Entity\Entity;
 use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Background\BackgroundParts\SkillPointsFromBackground;
 use DrdPlus\Background\BackgroundParts\Possession;
@@ -11,39 +11,25 @@ use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 use Granam\Strict\Object\StrictObject;
 
-/**
- * @ORM\Entity()
- */
-class Background extends StrictObject implements Entity
+class Background extends StrictObject
 {
     /**
-     * @var int
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue()
-     */
-    private $id;
-    /**
      * @var BackgroundPoints
-     * @ORM\Column(type="background_points")
      */
     private $backgroundPoints;
 
     /**
      * @var Ancestry
-     * @ORM\Column(type="ancestry")
      */
     private $ancestry;
 
     /**
      * @var SkillPointsFromBackground
-     * @ORM\Column(type="skill_points_from_background")
      */
     private $skillPointsFromBackground;
 
     /**
      * @var Possession
-     * @ORM\Column(type="possession")
      */
     private $possession;
 
@@ -138,49 +124,26 @@ class Background extends StrictObject implements Entity
             + $possessionValue->getSpentBackgroundPoints()->getValue();
     }
 
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return BackgroundPoints
-     */
     public function getBackgroundPoints(): BackgroundPoints
     {
         return $this->backgroundPoints;
     }
 
-    /**
-     * @return Ancestry
-     */
     public function getAncestry(): Ancestry
     {
         return $this->ancestry;
     }
 
-    /**
-     * @return SkillPointsFromBackground
-     */
     public function getSkillPointsFromBackground(): SkillPointsFromBackground
     {
         return $this->skillPointsFromBackground;
     }
 
-    /**
-     * @return Possession
-     */
     public function getPossession(): Possession
     {
         return $this->possession;
     }
 
-    /**
-     * @return int
-     */
     public function getRemainingBackgroundPoints(): int
     {
         return $this->getBackgroundPoints()->getValue() - $this->sumSpentPoints(

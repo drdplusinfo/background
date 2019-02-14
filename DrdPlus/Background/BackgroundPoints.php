@@ -1,9 +1,11 @@
 <?php
+declare(strict_types = 1);
+
 namespace DrdPlus\Background;
 
-use Doctrineum\Integer\IntegerEnum;
 use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tables\Tables;
+use Granam\IntegerEnum\IntegerEnum;
 
 class BackgroundPoints extends IntegerEnum
 {
@@ -12,9 +14,8 @@ class BackgroundPoints extends IntegerEnum
      * @param Tables $tables
      * @return BackgroundPoints|IntegerEnum
      */
-    public static function getIt(FateCode $fateCode, Tables $tables)
+    public static function getIt(FateCode $fateCode, Tables $tables): BackgroundPoints
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return static::getEnum($tables->getBackgroundPointsTable()->getBackgroundPointsByPlayerDecision($fateCode));
     }
 }

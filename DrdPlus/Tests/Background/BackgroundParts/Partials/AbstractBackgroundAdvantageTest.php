@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace DrdPlus\Tests\Background\BackgroundParts\Partials;
 
 use DrdPlus\Codes\History\ExceptionalityCode;
@@ -25,7 +27,7 @@ abstract class AbstractBackgroundAdvantageTest extends AbstractTestOfEnum
         self::assertSame($spentBackgroundPoints, $sut->getSpentBackgroundPoints(), 'Expected same instance');
     }
 
-    public function provideSpentBackgroundPoints()
+    public function provideSpentBackgroundPoints(): array
     {
         return [[0], [1], [2], [3], [4], [5], [6], [7], [8]];
     }

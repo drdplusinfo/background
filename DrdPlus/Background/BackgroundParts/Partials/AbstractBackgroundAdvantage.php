@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace DrdPlus\Background\BackgroundParts\Partials;
 
-use Doctrineum\Integer\IntegerEnum;
 use DrdPlus\Codes\History\ExceptionalityCode;
 use Granam\Integer\PositiveIntegerObject;
+use Granam\IntegerEnum\IntegerEnum;
 
 abstract class AbstractBackgroundAdvantage extends IntegerEnum
 {
@@ -29,7 +31,6 @@ abstract class AbstractBackgroundAdvantage extends IntegerEnum
     public function getSpentBackgroundPoints(): PositiveIntegerObject
     {
         if ($this->spentBackgroundPoints === null) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $this->spentBackgroundPoints = new PositiveIntegerObject($this->getValue());
         }
 
