@@ -1,10 +1,9 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace DrdPlus\Tests\Background;
 
 use Granam\ScalarEnum\ScalarEnum;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 abstract class AbstractTestOfEnum extends TestWithMockery
 {
@@ -17,7 +16,7 @@ abstract class AbstractTestOfEnum extends TestWithMockery
         $sutClass = self::getSutClass();
         self::assertTrue(\class_exists($sutClass), "Class $sutClass not found");
         self::assertTrue(
-            \is_a($sutClass, ScalarEnum::class, true),
+            is_a($sutClass, ScalarEnum::class, true),
             "Class $sutClass should be child of " . ScalarEnum::class
         );
     }

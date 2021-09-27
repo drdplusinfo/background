@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace DrdPlus\Tests\Background\BackgroundParts\Partials;
 
@@ -38,7 +37,7 @@ abstract class AbstractBackgroundAdvantageTest extends AbstractTestOfEnum
     public function I_can_not_get_ancestry_background_points_with_invalid_value()
     {
         $this->expectException(\DrdPlus\Background\Exceptions\TooMuchSpentBackgroundPoints::class);
-        $this->expectExceptionMessageRegExp('~9~');
+        $this->expectExceptionMessageMatches('~9~');
         $this->createSutToTestSpentBackgroundPoints(new PositiveIntegerObject(9));
     }
 

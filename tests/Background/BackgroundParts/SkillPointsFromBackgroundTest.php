@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Tests\Background\BackgroundParts;
 
@@ -121,8 +121,8 @@ class SkillPointsFromBackgroundTest extends AbstractAncestryDependentTest
 
     public function provideSkillType(): array
     {
-        return \array_map(
-            function ($value) {
+        return array_map(
+            static function ($value) {
                 return [$value];
             },
             SkillTypeCode::getPossibleValues()
